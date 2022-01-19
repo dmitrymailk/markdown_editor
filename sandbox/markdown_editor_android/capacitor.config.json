@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "markdown_editor_android",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

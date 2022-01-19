@@ -1,0 +1,7 @@
+{
+  "name": "markdown_editor_android",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
