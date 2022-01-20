@@ -1,7 +1,9 @@
 ## Start project
 
-1. npm install -g @ionic/cli@latest
-2. ionic start myApp blank --type vue
-3. ionic serve
+1.  npm install -g @ionic/cli\@latest
 
-- [BUG! exception in phase 'semantic analysis' in source unit '_BuildScript_' Unsupported class file major version 61 on Apple Arm](https://stackoverflow.com/questions/68597899/bug-exception-in-phase-semantic-analysis-in-source-unit-buildscript-unsup)
+2.  ionic start myApp blank --type vue
+
+3.  ionic serve
+
+- [BUG! exception in phase 'semantic analysis' in source unit '](https://stackoverflow.com/questions/68597899/bug-exception-in-phase-semantic-analysis-in-source-unit-buildscript-unsup) - сперва лучше проверить sdk в android studio и довериться ему в автоматическом разрешении проблем

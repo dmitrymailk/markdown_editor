@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Wonder Unit Alchemancy Example</title>
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      touch-action: none;
+      overflow: hidden;
+      margin: 0;
+      height: 100%;
+    }
+
+    .container {
+      position: absolute;
+      top: 50px;
+      pointer-events: none;
+      /* display: none; */
+    }
+
+    .button {
+      display: inline-block;
+      position: relative;
+      margin-top: 10px;
+      margin-right: 5px;
+      z-index: 99;
+      background: white;
+      color: black;
+      padding: 10px;
+      border-radius: 4px;
+      border: 3px solid grey;
+    }
+
+    .button:hover {
+      background: grey;
+    }
+
+    .row {
+      pointer-events: none;
+      user-select: none;
+    }
+    .row * {
+      pointer-events: auto;
+    }
+    kbd {
+      margin: 0 0.5rem 0 0;
+      padding: 0 0.25rem;
+      display: block;
+      /* width: 1rem; */
+      height: 1rem;
+      text-align: center;
+      line-height: 1;
+      border-top: 2px solid #ddd;
+      border-left: 2px solid #ddd;
+      border-bottom: 2px solid #888;
+      border-right: 2px solid #888;
+      background: #eee;
+      color: #555;
+    }
+    .row--key-commands {
+      display: inline-flex;
+      width: auto;
+      background: white;
+      padding: 0.5rem 0.5rem;
+      border-radius: 6px;
+      font-family: monospace;
+      line-height: 1;
+      align-items: center;
+    }
+    .row--key-commands div {
+      margin-top: -2px; /* optical */
+    }
+    .row--key-commands div:not(:last-child) {
+      margin-right: 0.75rem;
+    }
+
+    #thumbnail {
+      margin: 6px 0;
+    }
+    #thumbnail img {
+      display: block;
+      border: 3px solid #333;
+      padding-bottom: 12px;
+      border-radius: 6px; 
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row row--key-commands">
+      <kbd>c</kbd> <div>clear</div>
+      <kbd>[</kbd> <div>smaller brush</div>
+      <kbd>]</kbd> <div>larger brush</div>
+      <kbd>alt</kbd>/<kbd>option</kbd> <div>hold to erase</div>
+      <kbd>f</kbd> <div>flip horz</div>
+    </div>
+    <div class="row">
+      <div class="button" id="l-0">Layer 0</div>
+      <div class="button" id="l-1">Layer 1</div>
+      <div class="button" id="l-2">Layer 2</div>
+      <div class="button" id="l-3">Layer 3</div>
+      <div class="button" id="clear">Clear Layer</div>
+    </div>
+    <div class="row">
+      <div class="button" id="b-1">Pencil</div>
+      <div class="button" id="b-2">Pen</div>
+      <div class="button" id="b-copic">Copic</div>
+      <div class="button" id="b-3">Charcoal</div>
+      <div class="button" id="b-4">Water Color</div>
+      <div class="button" id="b-5">Clouds</div>
+      <div class="button" id="b-6">Slate</div>
+      <div class="button" id="b-7">Brush Pen</div>
+    </div>
+    <div class="row">
+      <div class="button" id="c-1">Black</div>
+      <div class="button" id="c-2">Blu-0</div>
+      <div class="button" id="c-3">Blu-1</div>
+      <div class="button" id="c-4">Blu-2</div>
+      <div class="button" id="c-5">Blu-3</div>
+      <div class="button" id="c-6">Yellow</div>
+      <div class="button" id="c-7">White</div>
+    </div>
+    <div class="row">
+      <div class="button" id="s-1">Small</div>
+      <div class="button" id="s-2">Medium</div>
+      <div class="button" id="s-3">Large</div>
+      <div class="button" id="s-4">X-Large</div>
+    </div>
+    <div class="row">
+      <div class="button" id="o-1">10%</div>
+      <div class="button" id="o-2">30%</div>
+      <div class="button" id="o-3">50%</div>
+      <div class="button" id="o-4">80%</div>
+      <div class="button" id="o-5">100%</div>
+    </div>
+    <div class="row">
+      <div class="button" id="spacing-1">0.05</div>
+      <div class="button" id="spacing-2">0.5</div>
+      <div class="button" id="spacing-3">1</div>
+      <div class="button" id="spacing-4">2</div>
+      <div class="button" id="spacing-5">5</div>
+    </div>
+    <div class="row">
+      <div class="button" id="spin">Spin Canvas</div>
+      <div class="button" id="plot-lines">Plot Lines</div>
+      <div class="button" id="draw-strokes">Draw Strokes</div>
+      <div class="button" id="draw-pressure">Pressure Line</div>
+    </div>
+    <div class="row">
+      <div class="button" id="save">Save</div>
+      <div id="thumbnail"></div>
+    </div>
+  </div>
+
+  <script src="./dist/vendor.browser.js"></script>
+  <script src="./dist/sketch-pane.browser.js"></script>
+
+  <script src="./example/vendor/stats.min.js"></script>
+  <script src="./example/vendor/dat.gui.min.js"></script>
+  <script src="./example/app.js"></script>
+</body>
+</html>
