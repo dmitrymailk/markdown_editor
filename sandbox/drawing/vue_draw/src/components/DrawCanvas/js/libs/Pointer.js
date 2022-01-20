@@ -19,9 +19,9 @@ class PointerStore {
     if (this.hashMap[pointerId]) {
       delete hashMap[pointerId];
       this.size -= 1;
-      if (size == 0 && Pointer.onEmpty) {
-        Pointer.onEmpty();
-      }
+      //   if (size == 0 && Pointer.onEmpty) {
+      //     Pointer.onEmpty();
+      //   }
     }
   }
 }
@@ -52,3 +52,5 @@ class Pointer {
     this.pos1.y = pos.y;
   }
 }
+
+export { Pointer, PointerStore };
