@@ -1,12 +1,3 @@
-"use strict";
-
-// Initialise application
-Board.init("board");
-Pen.init(Board.ctx);
-FloatingButton.init();
-FloatingButton.onClick = Board.clearMemory.bind(Board);
-Pointer.onEmpty = _.debounce(Board.storeMemory.bind(Board), 1500);
-
 // Attach event listener
 var pointerDown = function pointerDown(e) {
   // Initialise pointer
@@ -27,10 +18,6 @@ var pointerMove = function pointerMove(e) {
 var pointerCancel = function pointerLeave(e) {
   Pointer.destruct(e.pointerId);
 };
-Board.dom.addEventListener("pointerdown", pointerDown);
-Board.dom.addEventListener("pointermove", pointerMove);
-Board.dom.addEventListener("pointerup", pointerCancel);
-Board.dom.addEventListener("pointerleave", pointerCancel);
 
 // Draw method
 function drawOnCanvas(e, pointerObj, Pen) {
@@ -52,3 +39,19 @@ function drawOnCanvas(e, pointerObj, Pen) {
     pointerObj.pos0.y = pointerObj.pos1.y;
   }
 }
+
+function initDrawingApp(canvasId = "board") {
+  // Initialise application
+  Board.init(canvasId);
+  Pen.init(Board.ctx);
+  FloatingButton.init();
+  FloatingButton.onClick = Board.clearMemory.bind(Board);
+  Pointer.onEmpty = _.debounce(Board.storeMemory.bind(Board), 1500);
+
+  Board.dom.addEventListener("pointerdown", pointerDown);
+  Board.dom.addEventListener("pointermove", pointerMove);
+  Board.dom.addEventListener("pointerup", pointerCancel);
+  Board.dom.addEventListener("pointerleave", pointerCancel);
+}
+
+export { initDrawingApp };

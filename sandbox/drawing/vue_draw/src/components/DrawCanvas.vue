@@ -13,10 +13,10 @@
 </template>
 
 <script>
-// import { drawOnCanvas } from "../components/DrawCanvas/js/main";
+import { initDrawingApp } from "../components/DrawCanvas/js/main";
 export default {
   mounted() {
-    // console.log("hello world", drawOnCanvas);
+    console.log("hello world", initDrawingApp);
   },
 };
 </script>
