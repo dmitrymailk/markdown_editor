@@ -26,12 +26,6 @@ var FloatingButton = (function () {
         left: getOffset(document.body.clientWidth, this.config.margin),
         opacity: this.config.inactiveOpacity,
       });
-
-      // Apply eventListener
-      this.dom.addEventListener("pointerdown", buttonClicked.bind(this));
-      this.dom.addEventListener("pointerup", buttonUnclicked.bind(this));
-      document.body.addEventListener("pointermove", buttonDragged.bind(this));
-      //    window.addEventListener('resize', _.throttle(buttonRepositioned.bind(this) , 50));
     },
   };
 
@@ -49,58 +43,6 @@ var FloatingButton = (function () {
     Object.keys(cssStyle).map(function (key) {
       self.dom.style[key] = cssStyle[key];
     });
-  };
-
-  // Events
-  var clickedId = null;
-  var dragCount = 0;
-  var isActive = false;
-  var buttonClicked = function buttonClicked(event) {
-    clickedId = event.pointerId;
-    isActive = true;
-    this.dom.style.opacity = this.config.activeOpacity;
-  };
-  var buttonUnclicked = function buttonUnclicked(event) {
-    if (clickedId && dragCount < 3) {
-      if (this.onClick) this.onClick();
-    }
-    clickedId = null;
-    dragCount = 0;
-    isActive = false;
-    var self = this;
-    setTimeout(function () {
-      if (!isActive) self.dom.style.opacity = self.config.inactiveOpacity;
-    }, 1000);
-  };
-
-  var buttonDragged = function buttonDragged(event) {
-    if (clickedId && clickedId === event.pointerId) {
-      isActive = true;
-      dragCount += 1;
-      this.dom.style.top = event.pageY - this.config.size / 2 + "px";
-      this.dom.style.left = event.pageX - this.config.size / 2 + "px";
-    }
-  };
-
-  var buttonRepositioned = function buttonRepositioned(event) {
-    if (
-      parseInt(this.dom.style.top) + this.config.margin >
-      window.innerHeight
-    ) {
-      this.dom.style.top = getOffset(
-        document.body.clientHeight,
-        this.config.margin
-      );
-    }
-    if (
-      parseInt(this.dom.style.left) + this.config.margin >
-      window.innerWidth
-    ) {
-      this.dom.style.left = getOffset(
-        document.body.clientWidth,
-        this.config.margin
-      );
-    }
   };
 
   return FloatingButton;
