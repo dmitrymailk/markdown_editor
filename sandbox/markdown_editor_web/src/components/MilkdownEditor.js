@@ -13,12 +13,16 @@ import { tooltip } from "@milkdown/plugin-tooltip";
 import { slash } from "@milkdown/plugin-slash";
 import { indent } from "@milkdown/plugin-indent";
 // https://www.npmjs.com/package/@milkdown/plugin-menu
-import { menu } from "@milkdown/plugin-menu";
+// import { menu } from "";
 import { upload } from "@milkdown/plugin-upload";
-import { prism } from "@milkdown/plugin-prism";
+// import { prism } from "@milkdown/plugin-prism";
 import "katex/dist/katex.min.css";
 // https://www.npmjs.com/package/material-icons
 import "material-icons/iconfont/material-icons.css";
+
+// import { myPlugin } from "../components/milkdown_plugins/test_plugin/test_plugin";
+import { prism } from "./milkdown_plugins/my-prism-plugin";
+import { menu } from "../components/milkdown_plugins/my-plugin-menu";
 
 export const MilkdownEditor = defineComponent(() => {
   const editor = useEditor((root) =>
