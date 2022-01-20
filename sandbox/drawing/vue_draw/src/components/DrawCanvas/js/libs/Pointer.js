@@ -1,60 +1,54 @@
-'use strict'
-
-var Pointer = (function() {
-
-  var size = 0;
-  var hashMap = {};
-
-  var Pointer = function Pointer(pointerId) {
-    this.pointerId = pointerId;
-    this.pos1 = {
-      x: -1,
-      y: -1
-    };
-    this.pos0 = {
-      x: -1,
-      y: -1
-    };
-    this.isClicked = false;
-
-    Pointer.addPointer(this);
+class PointerStore {
+  constructor() {
+    this.size = 0;
+    this.hashMap = {};
+    this.onEmpty = null;
   }
 
-  // Static Methodst
-  Pointer.get = function get(pointerId) {
-    return hashMap[pointerId];
+  get(pointerId) {
+    return this.hashMap[pointerId];
   }
-  Pointer.destruct = function destruct(pointerId) {
+  destruct(pointerId) {
     this.removePointer(pointerId);
   }
-  Pointer.addPointer = function addPointer(pointer) {
+  addPointer(pointer) {
     hashMap[pointer.pointerId] = pointer;
     size += 1;
   }
-  Pointer.removePointer = function removePointer(pointerId) {
-    if (hashMap[pointerId]) {
+  removePointer(pointerId) {
+    if (this.hashMap[pointerId]) {
       delete hashMap[pointerId];
-      size -= 1;
+      this.size -= 1;
       if (size == 0 && Pointer.onEmpty) {
         Pointer.onEmpty();
       }
     }
   }
-  Pointer.onEmpty = null;
+}
 
-  // OO Methods
-  Pointer.prototype = {
-    constructor: Pointer,
-    release: function release() {
-      this.isClicked = false;
-      this.pos0.y = -1;
-      this.pos0.x = -1;
-    },
-    set: function set(pos) {
-      this.pos1.x = pos.x;
-      this.pos1.y = pos.y;
-    }
+class Pointer {
+  constructor(pointerId, pointerStore) {
+    this.pointerId = pointerId;
+    this.pos1 = {
+      x: -1,
+      y: -1,
+    };
+    this.pos0 = {
+      x: -1,
+      y: -1,
+    };
+    this.isClicked = false;
+    this.pointerStore = pointerStore;
+    this.pointerStore.addPointer(this);
   }
 
-  return Pointer;
-})();
+  release() {
+    this.isClicked = false;
+    this.pos0.y = -1;
+    this.pos0.x = -1;
+  }
+  set(pos) {
+    this.pos1.x = pos.x;
+    this.pos1.y = pos.y;
+  }
+}
