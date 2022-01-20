@@ -109,3 +109,5 @@ class Board {
     this.pos.y = this.dom.offsetTop;
   }
 }
+
+export { Board };
