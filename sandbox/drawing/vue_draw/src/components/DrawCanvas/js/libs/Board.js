@@ -33,8 +33,7 @@ class Board {
     this.ctxMem.fillRect(0, 0, this.domMem.width, this.domMem.height);
 
     // Set up sizing
-    fitToWindow.bind(this)();
-    window.addEventListener("resize", fitToWindow.bind(this));
+    window.addEventListener("resize", this.fitToWindow.bind(this));
 
     // Load canvas from local storage
     if (localStorage.dataURL) {

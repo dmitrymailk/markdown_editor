@@ -25,8 +25,9 @@ class Pen {
     context.lineJoin = this.lineJoin;
   }
   setFuncType(pointerEvent) {
-    if (checkMenuKey(pointerEvent)) this.funcType = this.funcTypes.menu;
-    else if (checkEraseKeys(pointerEvent)) this.funcType = this.funcTypes.erase;
+    if (this.checkMenuKey(pointerEvent)) this.funcType = this.funcTypes.menu;
+    else if (this.checkEraseKeys(pointerEvent))
+      this.funcType = this.funcTypes.erase;
     else this.funcType = this.funcTypes.draw;
     return this.funcType;
   }
@@ -42,7 +43,7 @@ class Pen {
       case this.funcTypes.draw: {
         this.set(context, {
           color: this.colors.fg,
-          lineWidth: getLineWidth(pointerEvent),
+          lineWidth: this.getLineWidth(pointerEvent),
         });
         break;
       }

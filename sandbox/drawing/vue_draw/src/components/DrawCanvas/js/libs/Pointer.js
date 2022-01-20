@@ -12,12 +12,12 @@ class PointerStore {
     this.removePointer(pointerId);
   }
   addPointer(pointer) {
-    hashMap[pointer.pointerId] = pointer;
-    size += 1;
+    this.hashMap[pointer.pointerId] = pointer;
+    this.size += 1;
   }
   removePointer(pointerId) {
     if (this.hashMap[pointerId]) {
-      delete hashMap[pointerId];
+      delete this.hashMap[pointerId];
       this.size -= 1;
       //   if (size == 0 && Pointer.onEmpty) {
       //     Pointer.onEmpty();
