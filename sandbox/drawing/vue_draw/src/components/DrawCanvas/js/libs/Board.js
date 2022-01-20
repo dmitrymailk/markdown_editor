@@ -1,6 +1,6 @@
 class Board {
   constructor() {
-    this.resolution = 2;
+    this.resolution = 1;
     this.dom = null;
     this.ctx = null;
     this.domMem = null;
@@ -33,14 +33,14 @@ class Board {
     this.ctxMem.fillRect(0, 0, this.domMem.width, this.domMem.height);
 
     // Set up sizing
-    window.addEventListener("resize", this.fitToWindow.bind(this));
+    // window.addEventListener("resize", this.fitToWindow.bind(this));
 
     // Load canvas from local storage
-    if (localStorage.dataURL) {
-      var img = new window.Image();
-      img.addEventListener("load", this.loadToMemory.bind(this));
-      img.setAttribute("src", localStorage.dataURL);
-    }
+    // if (localStorage.dataURL) {
+    //   var img = new window.Image();
+    //   img.addEventListener("load", this.loadToMemory.bind(this));
+    //   img.setAttribute("src", localStorage.dataURL);
+    // }
   }
   getPointerPos(event) {
     return {
@@ -50,7 +50,7 @@ class Board {
   }
   storeMemory() {
     this.ctxMem.drawImage(this.dom, 0, 0);
-    localStorage.setItem("dataURL", this.domMem.toDataURL());
+    // localStorage.setItem("dataURL", this.domMem.toDataURL());
   }
   clearMemory() {
     localStorage.clear();
@@ -71,29 +71,29 @@ class Board {
     var widthCss = window.innerWidth - marginX;
     var widthCanvas = widthCss * this.resolution;
 
-    // If new size is larger than memory
-    if (widthCanvas > this.domMem.width || heightCanvas > this.domMem.height) {
-      // Create buffer
-      var bufferCanvas = document.createElement("canvas");
-      var bufferCtx = bufferCanvas.getContext("2d");
+    // // If new size is larger than memory
+    // if (widthCanvas > this.domMem.width || heightCanvas > this.domMem.height) {
+    //   // Create buffer
+    //   var bufferCanvas = document.createElement("canvas");
+    //   var bufferCtx = bufferCanvas.getContext("2d");
 
-      bufferCanvas.width = this.domMem.width;
-      bufferCanvas.height = this.domMem.height;
+    //   bufferCanvas.width = this.domMem.width;
+    //   bufferCanvas.height = this.domMem.height;
 
-      // Clear buffer
-      bufferCtx.fillStyle = this.bgColor;
-      bufferCtx.fillRect(0, 0, widthCanvas, heightCanvas);
+    //   // Clear buffer
+    //   bufferCtx.fillStyle = this.bgColor;
+    //   bufferCtx.fillRect(0, 0, widthCanvas, heightCanvas);
 
-      // Save canvas to buffer
-      bufferCtx.drawImage(this.dom, 0, 0);
+    //   // Save canvas to buffer
+    //   bufferCtx.drawImage(this.dom, 0, 0);
 
-      // Resize memory
-      if (this.domMem.width < widthCanvas) this.domMem.width = widthCanvas;
-      if (this.domMem.height < heightCanvas) this.domMem.height = heightCanvas;
-      this.ctxMem.drawImage(bufferCanvas, 0, 0);
-    } else {
-      this.ctxMem.drawImage(this.dom, 0, 0);
-    }
+    //   // Resize memory
+    //   if (this.domMem.width < widthCanvas) this.domMem.width = widthCanvas;
+    //   if (this.domMem.height < heightCanvas) this.domMem.height = heightCanvas;
+    //   this.ctxMem.drawImage(bufferCanvas, 0, 0);
+    // } else {
+    // }
+    this.ctxMem.drawImage(this.dom, 0, 0);
 
     // resize current canvas
     this.dom.style.height = heightCss + "px";

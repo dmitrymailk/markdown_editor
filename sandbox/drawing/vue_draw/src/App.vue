@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>HelloWorld</h1>
+    <!-- <h1>HelloWorld</h1> -->
     <DrawCanvas />
   </div>
 </template>

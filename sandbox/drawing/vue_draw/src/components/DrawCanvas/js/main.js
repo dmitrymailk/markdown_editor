@@ -23,6 +23,7 @@ class DrawApp {
   }
 
   pointerMove(e) {
+    console.log("pointerMove", e);
     if (
       this.pen.funcType &&
       this.pen.funcType.indexOf(this.pen.funcTypes.draw) !== -1

@@ -1,12 +1,6 @@
 <template>
   <div>
-    <canvas
-      touch-action="none"
-      id="board"
-      width="640"
-      height="640"
-      style="width: 320px; height: 320px"
-    >
+    <canvas touch-action="none" id="board" width="640" height="240">
       Opps, you cannot play draw N guess with this browser!
     </canvas>
   </div>
@@ -21,3 +15,10 @@ export default {
   },
 };
 </script>
+<style>
+#board {
+  height: 400px;
+  width: 500px;
+  border: 1px solid #000;
+}
+</style>
