@@ -3,8 +3,7 @@
 // Initialise application
 Board.init("board");
 Pen.init(Board.ctx);
-FloatingButton.init();
-// FloatingButton.onClick = Board.clearMemory.bind(Board);
+// FloatingButton.init();
 // Pointer.onEmpty = _.debounce(Board.storeMemory.bind(Board), 1500);
 
 // Attach event listener

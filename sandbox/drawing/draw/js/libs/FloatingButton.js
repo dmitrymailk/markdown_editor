@@ -9,22 +9,19 @@ var FloatingButton = (function () {
   var FloatingButton = {
     dom: null,
     config: {
-      size: buttonSize,
-      margin: buttonSize * 1.3,
-      inactiveOpacity: 0.5,
-      activeOpacity: 0.95,
+      size: 0,
+      margin: 0,
+      inactiveOpacity: 0,
+      activeOpacity: 0,
     },
     onClick: null,
     init: function init(elementId) {
       this.dom = constructElement.call(this, elementId);
+
       applyStyle.call(this, {
-        width: this.config.size + "px",
-        height: this.config.size + "px",
-        borderRadius: this.config.size + "px",
         position: "absolute",
         top: getOffset(document.body.clientHeight, this.config.margin),
         left: getOffset(document.body.clientWidth, this.config.margin),
-        opacity: this.config.inactiveOpacity,
       });
     },
   };
@@ -33,8 +30,7 @@ var FloatingButton = (function () {
   var constructElement = function constructElement(elementId) {
     var element = document.createElement("div");
     document.body.appendChild(element);
-    element.setAttribute("id", elementId || "floatingButton");
-    element.setAttribute("touch-action", "none");
+    element.setAttribute("id", "floatingButton");
     return element;
   };
 
