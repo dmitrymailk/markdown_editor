@@ -1,15 +1,18 @@
 <template>
   <div>
-    <MilkdownEditor />
+    <!-- <MilkdownEditor /> -->
+    <ExampleEditor />
   </div>
 </template>
 
 <script>
-import { MilkdownEditor } from "./components/MilkdownEditor";
+// import { MilkdownEditor } from "./components/MilkdownEditor";
+import ExampleEditor from "./components/official_examples/ExampleEditor.vue";
 export default {
   name: "App",
   components: {
-    MilkdownEditor,
+    // MilkdownEditor,
+    ExampleEditor,
   },
 };
 </script>
