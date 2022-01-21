@@ -1,11 +1,26 @@
 <template>
   <div>
     <h1>Image draw</h1>
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1280px-Cat03.jpg"
-      alt=""
-      srcset=""
-      width="100"
-    />
+    <canvas touch-action="none" id="board" width="640" height="640">
+      Opps, you cannot play draw N guess with this browser!
+    </canvas>
   </div>
 </template>
+<script>
+import { DrawApp } from "../draw/DrawCanvas/js/main";
+export default {
+  mounted() {
+    let drawApp = new DrawApp("board");
+    console.log("hello world", drawApp);
+  },
+};
+</script>
+
+<style lang="css">
+canvas {
+  background: white;
+}
+.ProseMirror-selectednode {
+  -webkit-user-drag: false;
+}
+</style>
