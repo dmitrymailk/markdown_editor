@@ -13,6 +13,7 @@
     "@milkdown/plugin-cursor": "^5.3.3",
     "@milkdown/plugin-history": "^5.3.3",
     "@milkdown/plugin-indent": "^5.3.3",
+    "@milkdown/plugin-listener": "^5.3.3",
     "@milkdown/plugin-math": "^5.3.3",
     "@milkdown/plugin-menu": "^5.3.3",
     "@milkdown/plugin-prism": "^5.3.3",
