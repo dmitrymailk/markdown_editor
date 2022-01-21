@@ -7,9 +7,6 @@
 <script>
 import { MyEditor } from "./VueEditor";
 const markdown = `
-# Milkdown Test
-## Blockquote
-> Milkdown is an editor.
 `;
 export default {
   data() {
