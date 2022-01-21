@@ -3,15 +3,18 @@ import { Pen } from "./libs/Pen";
 import { Pointer, PointerStore } from "./libs/Pointer";
 
 class DrawApp {
-  constructor(canvasId) {
+  constructor(canvasElem) {
     this.board = new Board();
     this.pen = new Pen();
     this.pointerStore = new PointerStore();
+    this.appDiv = window.document.querySelector("#app");
 
-    this.initDrawingApp(canvasId);
+    this.initDrawingApp(canvasElem);
   }
   // Attach event listener
   pointerDown(e) {
+    this.appDiv.style.touchAction = "none";
+
     // Initialise pointer
     var pointer = new Pointer(e.pointerId, this.pointerStore);
     pointer.set(this.board.getPointerPos(e));
@@ -24,6 +27,7 @@ class DrawApp {
 
   pointerMove(e) {
     // console.log("pointerMove", e);
+    this.appDiv.style.touchAction = "none";
     if (
       this.pen.funcType &&
       this.pen.funcType.indexOf(this.pen.funcTypes.draw) !== -1
@@ -34,6 +38,8 @@ class DrawApp {
   }
 
   pointerLeave(e) {
+    // this.appDiv.touchAction = "";
+    this.appDiv.style.touchAction = "initial";
     this.pointerStore.destruct(e.pointerId);
   }
 
@@ -58,9 +64,9 @@ class DrawApp {
     }
   }
 
-  initDrawingApp(canvasId = "board") {
+  initDrawingApp(canvasElem) {
     // Initialise application
-    this.board.init(canvasId);
+    this.board.init(canvasElem);
     this.pen.init(this.board.ctx);
 
     this.board.dom.addEventListener("pointerdown", this.pointerDown.bind(this));

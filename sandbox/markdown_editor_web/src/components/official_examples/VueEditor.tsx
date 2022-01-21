@@ -46,7 +46,6 @@ const ImageDraw: DefineComponent = defineComponent({
 const MyEditor = defineComponent<{ markdown: string }>({
   name: "my-editor",
   setup: (props) => {
-    console.log("IMAGE", image);
     const editorRef = ref<EditorRef>({ get: () => undefined, dom: () => null });
     const editor = useEditor((root, renderVue) => {
       const nodes = commonmarkNodes.configure(image, {

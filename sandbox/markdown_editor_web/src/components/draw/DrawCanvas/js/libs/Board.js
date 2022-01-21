@@ -19,8 +19,8 @@ class Board {
     this.ctxMem.drawImage(imageObj, 0, 0);
     this.ctx.drawImage(imageObj, 0, 0);
   }
-  init(canvasId) {
-    this.dom = document.getElementById(canvasId);
+  init(canvasElem) {
+    this.dom = canvasElem;
     this.ctx = this.dom.getContext("2d", { desynchronized: true });
 
     // Additional Configuration

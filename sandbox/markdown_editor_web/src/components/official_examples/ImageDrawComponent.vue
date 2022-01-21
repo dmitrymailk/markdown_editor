@@ -1,17 +1,16 @@
 <template>
   <div>
-    <h1>Image draw</h1>
-    <canvas touch-action="none" id="board" width="640" height="640">
-      Opps, you cannot play draw N guess with this browser!
-    </canvas>
+    <canvas ref="drawCanvas" width="640" height="440" />
   </div>
 </template>
 <script>
 import { DrawApp } from "../draw/DrawCanvas/js/main";
 export default {
   mounted() {
-    let drawApp = new DrawApp("board");
+    let drawApp = new DrawApp(this.$refs.drawCanvas);
     console.log("hello world", drawApp);
+    console.log();
+    this.$refs.drawCanvas.parentElement.parentElement.draggable = false;
   },
 };
 </script>
@@ -19,8 +18,6 @@ export default {
 <style lang="css">
 canvas {
   background: white;
-}
-.ProseMirror-selectednode {
-  -webkit-user-drag: false;
+  border: 1px solid #000;
 }
 </style>
