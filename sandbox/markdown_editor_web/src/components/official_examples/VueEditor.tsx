@@ -34,7 +34,6 @@ import "material-icons/iconfont/material-icons.css";
 const ImageDraw: DefineComponent = defineComponent({
   name: "image-draw",
   setup() {
-    // @ts-ignore
     return () => <ImageDrawComponent />;
   },
   components: {
