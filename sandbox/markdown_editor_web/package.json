@@ -16,7 +16,6 @@
     "@milkdown/plugin-math": "^5.3.4",
     "@milkdown/plugin-menu": "^5.3.4",
     "@milkdown/plugin-prism": "^5.3.4",
-    "@milkdown/plugin-table": "^5.3.1",
     "@milkdown/plugin-tooltip": "^5.3.4",
     "@milkdown/plugin-upload": "^5.3.4",
     "@milkdown/preset-gfm": "^5.3.4",
@@ -57,6 +56,9 @@
     ],
     "parserOptions": {
       "parser": "babel-eslint"
+    },
+    "rules": {
+      "no-unused-vars": "off"
     }
   },
   "browserslist": [

@@ -17,7 +17,7 @@ import ImageDrawComponent from "./ImageDrawComponent.vue";
 // plugins
 import { history } from "@milkdown/plugin-history";
 import { cursor } from "@milkdown/plugin-cursor";
-import { table } from "@milkdown/plugin-table";
+// import { table } from "@milkdown/plugin-table";
 import { math } from "@milkdown/plugin-math";
 import { tooltip } from "@milkdown/plugin-tooltip";
 import { indent } from "@milkdown/plugin-indent";
@@ -53,32 +53,35 @@ const MyEditor = defineComponent<{ markdown: string }>({
         view: renderVue(ImageDraw),
       });
 
-      return Editor.make()
-        .config((ctx) => {
-          ctx.set(rootCtx, root);
-          ctx.set(defaultValueCtx, props.markdown);
-          ctx
-            .get(listenerCtx)
-            .markdownUpdated((ctx, markdown, prevMarkdown) => {
-              let output = markdown;
-              console.log(prevMarkdown, output);
-            });
-        })
-        .use(nord)
-        .use(nodes)
-        .use(slash)
+      return (
+        Editor.make()
+          .config((ctx) => {
+            ctx.set(rootCtx, root);
+            ctx.set(defaultValueCtx, props.markdown);
+            ctx
+              .get(listenerCtx)
+              .markdownUpdated((ctx, markdown, prevMarkdown) => {
+                // @ts-ignore
+                let output = markdown;
+                // console.log(prevMarkdown, output);
+              });
+          })
+          .use(nord)
+          .use(nodes)
+          .use(slash)
 
-        .use(listener)
-        .use(history)
-        .use(cursor)
-        .use(table)
-        .use(math)
-        .use(tooltip)
-        .use(indent)
-        .use(menu())
-        .use(upload)
-        .use(prism)
-        .use(diagram);
+          .use(listener)
+          .use(history)
+          .use(cursor)
+          // .use(table)
+          .use(math)
+          .use(tooltip)
+          .use(indent)
+          .use(menu())
+          .use(upload)
+          .use(prism)
+          .use(diagram)
+      );
     });
 
     return () => <VueEditor editorRef={editorRef} editor={editor} />;
