@@ -5,6 +5,7 @@ import { slash } from "@milkdown/plugin-slash";
 import {
   commonmarkNodes,
   //   commonmarkPlugins,
+  commonmark,
   image,
 } from "@milkdown/preset-commonmark";
 import { nord } from "@milkdown/theme-nord";
@@ -50,36 +51,39 @@ const MyEditor = defineComponent<{ markdown: string }>({
   setup: (props) => {
     const editorRef = ref<EditorRef>({ get: () => undefined, dom: () => null });
     const editor = useEditor((root, renderVue) => {
-      const nodes = commonmarkNodes.configure(image, {
-        view: renderVue(ImageDraw),
-      });
+      //   const nodes = commonmarkNodes.configure(image, {
+      //     view: renderVue(ImageDraw),
+      //   });
 
-      return Editor.make()
-        .config((ctx) => {
-          ctx.set(rootCtx, root);
-          ctx.set(defaultValueCtx, props.markdown);
-          ctx
-            .get(listenerCtx)
-            .markdownUpdated((ctx, markdown, prevMarkdown) => {
-              // @ts-ignore
-              let output = markdown;
-              console.log(output);
-            });
-        })
-        .use(nord)
-        .use(nodes)
-        .use(slash)
+      return (
+        Editor.make()
+          .config((ctx) => {
+            ctx.set(rootCtx, root);
+            ctx.set(defaultValueCtx, props.markdown);
+            ctx
+              .get(listenerCtx)
+              .markdownUpdated((ctx, markdown, prevMarkdown) => {
+                // @ts-ignore
+                let output = markdown;
+                console.log(output);
+              });
+          })
+          .use(nord)
+          // .use(nodes)
+          .use(commonmark)
+          .use(slash)
 
-        .use(listener)
-        .use(history)
-        .use(cursor)
-        .use(math)
-        .use(tooltip)
-        .use(indent)
-        .use(menu())
-        .use(upload)
-        .use(prism)
-        .use(drawing);
+          .use(listener)
+          .use(history)
+          .use(cursor)
+          .use(math)
+          .use(tooltip)
+          .use(indent)
+          .use(menu())
+          .use(upload)
+          .use(prism)
+          .use(drawing)
+      );
     });
     // @ts-ignore
     return () => <VueEditor editorRef={editorRef} editor={editor} />;

@@ -1,4 +1,5 @@
 /* Copyright 2021, Milkdown by Mirone. */
+/*DRAWING*/
 import { createCmd, createCmdKey } from "@milkdown/core";
 import { setBlockType, textblockTypeInputRule } from "@milkdown/prose";
 import { createNode } from "@milkdown/utils";
@@ -102,12 +103,17 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       toMarkdown: {
         match: (node) => node.type.name === id,
         runner: (state, node) => {
-          state.addNode(
-            "code",
-            undefined,
-            node.content.firstChild?.text || "",
-            { lang: "mermaid" }
-          );
+          //   state.addNode(
+          //     "code",
+          //     undefined,
+          //     node.content.firstChild?.text || "",
+          //     { lang: "mermaid" }
+          //   );
+          state.addNode("image", undefined, undefined, {
+            title: "test_image",
+            url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
+            alt: "test_alt",
+          });
         },
       },
     }),
@@ -160,6 +166,7 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       return {
         dom,
         update: (updatedNode) => {
+          //   debugger;
           if (!updatedNode.sameMarkup(currentNode)) return false;
           currentNode = updatedNode;
 

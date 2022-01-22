@@ -1,4 +1,5 @@
 /* Copyright 2021, Milkdown by Mirone. */
+/*INITIAL FILE*/
 import { createCmd, createCmdKey } from "@milkdown/core";
 import { setBlockType, textblockTypeInputRule } from "@milkdown/prose";
 import { createNode } from "@milkdown/utils";
