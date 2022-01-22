@@ -25,7 +25,8 @@ import { indent } from "@milkdown/plugin-indent";
 import { menu } from "@milkdown/plugin-menu";
 import { upload } from "@milkdown/plugin-upload";
 import { prism } from "@milkdown/plugin-prism";
-import { diagram } from "../milkdown_plugins/plugin-diagram/src";
+// import { diagram } from "../milkdown_plugins/plugin-diagram/src";
+import { drawing } from "../milkdown_plugins/plugin-drawing/src";
 import "katex/dist/katex.min.css";
 // https://www.npmjs.com/package/material-icons
 import "material-icons/iconfont/material-icons.css";
@@ -79,7 +80,7 @@ const MyEditor = defineComponent<{ markdown: string }>({
         .use(menu())
         .use(upload)
         .use(prism)
-        .use(diagram);
+        .use(drawing);
     });
     // @ts-ignore
     return () => <VueEditor editorRef={editorRef} editor={editor} />;
