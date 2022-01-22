@@ -25,6 +25,7 @@ import { indent } from "@milkdown/plugin-indent";
 import { menu } from "@milkdown/plugin-menu";
 import { upload } from "@milkdown/plugin-upload";
 import { prism } from "@milkdown/plugin-prism";
+import { diagram } from "@milkdown/plugin-diagram";
 import "katex/dist/katex.min.css";
 // https://www.npmjs.com/package/material-icons
 import "material-icons/iconfont/material-icons.css";
@@ -40,7 +41,7 @@ const ImageDraw: DefineComponent = defineComponent({
 });
 
 // import { createNode } from '@milkdown/utils';
-// import { listener, listenerCtx } from '@milkdown/plugin-listener';
+import { listener, listenerCtx } from "@milkdown/plugin-listener";
 // let output = '';
 
 const MyEditor = defineComponent<{ markdown: string }>({
@@ -52,31 +53,32 @@ const MyEditor = defineComponent<{ markdown: string }>({
         view: renderVue(ImageDraw),
       });
 
-      return (
-        Editor.make()
-          .config((ctx) => {
-            ctx.set(rootCtx, root);
-            ctx.set(defaultValueCtx, props.markdown);
-            // ctx.get(listenerCtx).markdownUpdated((ctx, markdown, prevMarkdown) => {
-            //     output = markdown;
-            //     console.log(prevMarkdown, output);
-            // });
-          })
-          .use(nord)
-          .use(nodes)
-          .use(slash)
+      return Editor.make()
+        .config((ctx) => {
+          ctx.set(rootCtx, root);
+          ctx.set(defaultValueCtx, props.markdown);
+          ctx
+            .get(listenerCtx)
+            .markdownUpdated((ctx, markdown, prevMarkdown) => {
+              let output = markdown;
+              console.log(prevMarkdown, output);
+            });
+        })
+        .use(nord)
+        .use(nodes)
+        .use(slash)
 
-          // .use(listener)
-          .use(history)
-          .use(cursor)
-          .use(table)
-          .use(math)
-          .use(tooltip)
-          .use(indent)
-          .use(menu())
-          .use(upload)
-          .use(prism)
-      );
+        .use(listener)
+        .use(history)
+        .use(cursor)
+        .use(table)
+        .use(math)
+        .use(tooltip)
+        .use(indent)
+        .use(menu())
+        .use(upload)
+        .use(prism)
+        .use(diagram);
     });
 
     return () => <VueEditor editorRef={editorRef} editor={editor} />;
