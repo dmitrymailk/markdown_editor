@@ -10,8 +10,14 @@ import { getStyle } from "./style";
 import { getId } from "./utility";
 
 // const inputRegex = /^```mermaid$/;
-const inputRegex = /^```dimweb$/;
-
+const inputRegex = /^```test$/;
+/**
+graph TD;
+    EditorState-->EditorView;
+    EditorView-->DOMEvent;
+    DOMEvent-->Transaction;
+    Transaction-->EditorState; 
+ */
 export type Options = {
   placeholder: {
     empty: string;

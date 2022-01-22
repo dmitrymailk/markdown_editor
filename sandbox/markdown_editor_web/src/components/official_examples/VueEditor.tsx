@@ -33,6 +33,7 @@ import "material-icons/iconfont/material-icons.css";
 const ImageDraw: DefineComponent = defineComponent({
   name: "image-draw",
   setup() {
+    // @ts-ignore
     return () => <ImageDrawComponent />;
   },
   components: {
@@ -62,7 +63,7 @@ const MyEditor = defineComponent<{ markdown: string }>({
             .markdownUpdated((ctx, markdown, prevMarkdown) => {
               // @ts-ignore
               let output = markdown;
-              // console.log(prevMarkdown, output);
+              console.log(output);
             });
         })
         .use(nord)
@@ -80,7 +81,7 @@ const MyEditor = defineComponent<{ markdown: string }>({
         .use(prism)
         .use(diagram);
     });
-
+    // @ts-ignore
     return () => <VueEditor editorRef={editorRef} editor={editor} />;
   },
 });
