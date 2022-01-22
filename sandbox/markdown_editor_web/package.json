@@ -9,23 +9,22 @@
     "deploy": "node --experimental-modules scripts/gh-pages-deploy.js"
   },
   "dependencies": {
-    "@milkdown/core": "^5.3.4",
-    "@milkdown/plugin-cursor": "^5.3.4",
-    "@milkdown/plugin-diagram": "^5.3.4",
-    "@milkdown/plugin-history": "^5.3.4",
-    "@milkdown/plugin-indent": "^5.3.4",
-    "@milkdown/plugin-listener": "^5.3.4",
-    "@milkdown/plugin-math": "^5.3.4",
-    "@milkdown/plugin-menu": "^5.3.4",
-    "@milkdown/plugin-prism": "^5.3.4",
-    "@milkdown/plugin-slash": "^5.3.4",
+    "@milkdown/core": "^5.3.3",
+    "@milkdown/plugin-cursor": "^5.3.3",
+    "@milkdown/plugin-history": "^5.3.3",
+    "@milkdown/plugin-indent": "^5.3.3",
+    "@milkdown/plugin-listener": "^5.3.3",
+    "@milkdown/plugin-math": "^5.3.3",
+    "@milkdown/plugin-menu": "^5.3.3",
+    "@milkdown/plugin-prism": "^5.3.3",
+    "@milkdown/plugin-slash": "^5.3.3",
     "@milkdown/plugin-table": "^5.3.1",
-    "@milkdown/plugin-tooltip": "^5.3.4",
-    "@milkdown/plugin-upload": "^5.3.4",
-    "@milkdown/preset-commonmark": "^5.3.4",
-    "@milkdown/preset-gfm": "^5.3.4",
-    "@milkdown/theme-nord": "^5.3.4",
-    "@milkdown/vue": "^5.3.4",
+    "@milkdown/plugin-tooltip": "^5.3.3",
+    "@milkdown/plugin-upload": "^5.3.3",
+    "@milkdown/preset-commonmark": "^5.3.3",
+    "@milkdown/preset-gfm": "^5.3.3",
+    "@milkdown/theme-nord": "^5.3.3",
+    "@milkdown/vue": "^5.3.3",
     "core-js": "^3.6.5",
     "material-icons": "^1.10.6",
     "vue": "^3.0.0"
@@ -57,10 +56,6 @@
     ],
     "parserOptions": {
       "parser": "babel-eslint"
-    },
-    "rules": {
-      "no-unused-vars": "off",
-      "vue/no-unused-components": "off"
     }
   },
   "browserslist": [
