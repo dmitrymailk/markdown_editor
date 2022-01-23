@@ -10,6 +10,8 @@ import { createInnerEditor } from "./inner-editor";
 import { getStyle } from "./style";
 import { getId } from "./utility";
 
+import { DrawApp } from "../../../draw/DrawCanvas/js/main.js";
+
 // const inputRegex = /^```mermaid$/;
 const inputRegex = /^```test$/;
 /**
@@ -128,47 +130,26 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       let currentNode = node;
       const dom = document.createElement("div");
 
+      // create drawing canvas
+      const canvas = document.createElement("canvas");
+      canvas.id = `drawing-${currentId}`;
+      canvas.width = 400;
+      const drawApp = new DrawApp(canvas);
+
       dom.classList.add("mermaid", "diagram", "drawing");
-      //   const code = document.createElement("div");
-      //   code.dataset.type = id;
-      //   code.dataset.value = node.attrs.value;
-      //   if (codeStyle && hideCodeStyle) {
-      //     code.classList.add(codeStyle, hideCodeStyle);
+
+      //   const rendered = document.createElement("div");
+      //   rendered.id = currentId;
+      //   if (previewPanelStyle) {
+      //     rendered.classList.add(previewPanelStyle);
       //   }
-
-      const rendered = document.createElement("div");
-      rendered.id = currentId;
-      if (previewPanelStyle) {
-        rendered.classList.add(previewPanelStyle);
-      }
-
-      //   dom.append(code);
 
       //   hello world element
       const helloWorld = document.createElement("h1");
       helloWorld.textContent = "helo world";
       dom.append(helloWorld);
-
-      //   const render = (code: string) => {
-      //     try {
-      //       if (!code) {
-      //         rendered.innerHTML = placeholder.empty;
-      //       } else {
-      //         const svg = mermaid.render(currentId, header + code);
-      //         rendered.innerHTML = svg;
-      //       }
-      //     } catch {
-      //       const error = document.getElementById("d" + currentId);
-      //       if (error) {
-      //         error.remove();
-      //       }
-      //       rendered.innerHTML = placeholder.error;
-      //     } finally {
-      //     }
-      // };
-      dom.appendChild(rendered);
-
-      //   render(node.attrs.value);
+      dom.append(canvas);
+      //   dom.appendChild(rendered);
 
       return {
         dom,
@@ -199,27 +180,17 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
             }
           }
           //   place where I update
-          const newVal = updatedNode.content.firstChild?.text || "";
-          //   code.dataset.value = newVal;
+          //   const newVal = updatedNode.content.firstChild?.text || "";
           helloWorld.textContent = "newVal";
           dom.appendChild(helloWorld);
-
-          //   render(newVal);
 
           return true;
         },
         selectNode: () => {
           if (!view.editable) return;
-          //   if (hideCodeStyle) {
-          //     code.classList.remove(hideCodeStyle);
-          //   }
-          //   innerEditor.openEditor(code, currentNode);
           dom.classList.add("ProseMirror-selectednode");
         },
         deselectNode: () => {
-          //   if (hideCodeStyle) {
-          //     code.classList.add(hideCodeStyle);
-          //   }
           innerEditor.closeEditor();
           dom.classList.remove("ProseMirror-selectednode");
         },
@@ -231,8 +202,7 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
         },
         ignoreMutation: () => true,
         destroy() {
-          rendered.remove();
-          //   code.remove();
+          //   rendered.remove();
           helloWorld.remove();
           dom.remove();
         },
