@@ -6,7 +6,7 @@ import {
   commonmarkNodes,
   //   commonmarkPlugins,
   commonmark,
-  image,
+  //   image,
 } from "@milkdown/preset-commonmark";
 import { nord } from "@milkdown/theme-nord";
 import { EditorRef, useEditor, VueEditor } from "@milkdown/vue";
@@ -45,15 +45,16 @@ const ImageDraw: DefineComponent = defineComponent({
 // import { createNode } from '@milkdown/utils';
 import { listener, listenerCtx } from "@milkdown/plugin-listener";
 // let output = '';
+// import { image } from "../milkdown_plugins/plugin-image-draw/image";
 
 const MyEditor = defineComponent<{ markdown: string }>({
   name: "my-editor",
   setup: (props) => {
     const editorRef = ref<EditorRef>({ get: () => undefined, dom: () => null });
     const editor = useEditor((root, renderVue) => {
-      //   const nodes = commonmarkNodes.configure(image, {
-      //     view: renderVue(ImageDraw),
-      //   });
+      // const nodes = commonmarkNodes.configure(image, {
+      //   view: renderVue(ImageDraw),
+      // });
 
       return (
         Editor.make()
@@ -72,7 +73,6 @@ const MyEditor = defineComponent<{ markdown: string }>({
           // .use(nodes)
           .use(commonmark)
           .use(slash)
-
           .use(listener)
           .use(history)
           .use(cursor)

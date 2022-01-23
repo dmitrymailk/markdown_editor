@@ -33,7 +33,7 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
     getStyle(utils);
   const header = `%%{init: {'theme': 'base', 'themeVariables': { ${mermaidVariables()} }}}%%\n`;
 
-  const id = "diagram";
+  const id = "drawing";
   mermaid.startOnLoad = false;
   mermaid.initialize({ startOnLoad: false });
 
@@ -109,6 +109,7 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
           //     node.content.firstChild?.text || "",
           //     { lang: "mermaid" }
           //   );
+          console.log(node);
           state.addNode("image", undefined, undefined, {
             title: "test_image",
             url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
@@ -126,13 +127,14 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       const currentId = getId(node);
       let currentNode = node;
       const dom = document.createElement("div");
-      dom.classList.add("mermaid", "diagram");
-      const code = document.createElement("div");
-      code.dataset.type = id;
-      code.dataset.value = node.attrs.value;
-      if (codeStyle && hideCodeStyle) {
-        code.classList.add(codeStyle, hideCodeStyle);
-      }
+
+      dom.classList.add("mermaid", "diagram", "drawing");
+      //   const code = document.createElement("div");
+      //   code.dataset.type = id;
+      //   code.dataset.value = node.attrs.value;
+      //   if (codeStyle && hideCodeStyle) {
+      //     code.classList.add(codeStyle, hideCodeStyle);
+      //   }
 
       const rendered = document.createElement("div");
       rendered.id = currentId;
@@ -140,28 +142,33 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
         rendered.classList.add(previewPanelStyle);
       }
 
-      dom.append(code);
+      //   dom.append(code);
 
-      const render = (code: string) => {
-        try {
-          if (!code) {
-            rendered.innerHTML = placeholder.empty;
-          } else {
-            const svg = mermaid.render(currentId, header + code);
-            rendered.innerHTML = svg;
-          }
-        } catch {
-          const error = document.getElementById("d" + currentId);
-          if (error) {
-            error.remove();
-          }
-          rendered.innerHTML = placeholder.error;
-        } finally {
-          dom.appendChild(rendered);
-        }
-      };
+      //   hello world element
+      const helloWorld = document.createElement("h1");
+      helloWorld.textContent = "helo world";
+      dom.append(helloWorld);
 
-      render(node.attrs.value);
+      //   const render = (code: string) => {
+      //     try {
+      //       if (!code) {
+      //         rendered.innerHTML = placeholder.empty;
+      //       } else {
+      //         const svg = mermaid.render(currentId, header + code);
+      //         rendered.innerHTML = svg;
+      //       }
+      //     } catch {
+      //       const error = document.getElementById("d" + currentId);
+      //       if (error) {
+      //         error.remove();
+      //       }
+      //       rendered.innerHTML = placeholder.error;
+      //     } finally {
+      //     }
+      // };
+      dom.appendChild(rendered);
+
+      //   render(node.attrs.value);
 
       return {
         dom,
@@ -191,26 +198,28 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
               }
             }
           }
-
+          //   place where I update
           const newVal = updatedNode.content.firstChild?.text || "";
-          code.dataset.value = newVal;
+          //   code.dataset.value = newVal;
+          helloWorld.textContent = "newVal";
+          dom.appendChild(helloWorld);
 
-          render(newVal);
+          //   render(newVal);
 
           return true;
         },
         selectNode: () => {
           if (!view.editable) return;
-          if (hideCodeStyle) {
-            code.classList.remove(hideCodeStyle);
-          }
-          innerEditor.openEditor(code, currentNode);
+          //   if (hideCodeStyle) {
+          //     code.classList.remove(hideCodeStyle);
+          //   }
+          //   innerEditor.openEditor(code, currentNode);
           dom.classList.add("ProseMirror-selectednode");
         },
         deselectNode: () => {
-          if (hideCodeStyle) {
-            code.classList.add(hideCodeStyle);
-          }
+          //   if (hideCodeStyle) {
+          //     code.classList.add(hideCodeStyle);
+          //   }
           innerEditor.closeEditor();
           dom.classList.remove("ProseMirror-selectednode");
         },
@@ -223,7 +232,8 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
         ignoreMutation: () => true,
         destroy() {
           rendered.remove();
-          code.remove();
+          //   code.remove();
+          helloWorld.remove();
           dom.remove();
         },
       };
@@ -231,6 +241,6 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
     inputRules: (nodeType) => [
       textblockTypeInputRule(inputRegex, nodeType, () => ({ id: getId() })),
     ],
-    remarkPlugins: () => [remarkMermaid],
+    // remarkPlugins: () => [remarkMermaid],
   };
 });
