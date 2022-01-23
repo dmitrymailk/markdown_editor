@@ -127,6 +127,8 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       canvas.id = `drawing-${currentId}`;
       canvas.width = 400;
       const setValue = (value: string) => {
+        //   tr это transition который управляет состоянием редактора.
+        // через него происходят все разметки в редакторе
         const { tr } = view.state;
         view.dispatch(
           tr.setNodeMarkup(getPos(), node.type, {
