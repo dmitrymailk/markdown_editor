@@ -13,7 +13,7 @@ import { getId } from "./utility";
 import { DrawApp } from "../../../draw/DrawCanvas/js/main.js";
 
 // const inputRegex = /^```mermaid$/;
-const inputRegex = /^```test$/;
+const inputRegex = /^`q$/;
 /**
 graph TD;
     EditorState-->EditorView;
@@ -65,7 +65,7 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       },
       parseDOM: [
         {
-          tag: `div[data-type="${id}"]`,
+          tag: `canvas[data-type="${id}"]`,
           preserveWhitespace: "full",
           getAttrs: (dom) => {
             if (!(dom instanceof HTMLElement)) {
@@ -81,10 +81,10 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       toDOM: (node) => {
         const identity = getId(node);
         return [
-          "div",
+          "canvas",
           {
             id: identity,
-            class: utils.getClassName(node.attrs, "mermaid"),
+            class: utils.getClassName(node.attrs, "drawing"),
             "data-type": id,
             "data-value": node.attrs.value,
           },
@@ -105,17 +105,12 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       toMarkdown: {
         match: (node) => node.type.name === id,
         runner: (state, node) => {
-          //   state.addNode(
-          //     "code",
-          //     undefined,
-          //     node.content.firstChild?.text || "",
-          //     { lang: "mermaid" }
-          //   );
-          console.log(node);
+          const url = node.attrs.value;
+          console.log("toMarkdown", node);
           state.addNode("image", undefined, undefined, {
-            title: "test_image",
-            url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-            alt: "test_alt",
+            title: "",
+            url: url,
+            alt: "",
           });
         },
       },
@@ -124,86 +119,43 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       createCmd(TurnIntoDiagram, () => setBlockType(nodeType, { id: getId() })),
     ],
     view: () => (node, view, getPos) => {
-      const innerEditor = createInnerEditor(view, getPos);
-
       const currentId = getId(node);
-      let currentNode = node;
       const dom = document.createElement("div");
 
       // create drawing canvas
       const canvas = document.createElement("canvas");
       canvas.id = `drawing-${currentId}`;
       canvas.width = 400;
-      const drawApp = new DrawApp(canvas);
+      const setValue = (value: string) => {
+        const { tr } = view.state;
+        view.dispatch(
+          tr.setNodeMarkup(getPos(), node.type, {
+            value,
+          })
+        );
+      };
+      const drawApp = new DrawApp(canvas, setValue);
 
-      dom.classList.add("mermaid", "diagram", "drawing");
+      dom.classList.add("drawing");
 
-      //   const rendered = document.createElement("div");
-      //   rendered.id = currentId;
-      //   if (previewPanelStyle) {
-      //     rendered.classList.add(previewPanelStyle);
-      //   }
-
-      //   hello world element
-      const helloWorld = document.createElement("h1");
-      helloWorld.textContent = "helo world";
-      dom.append(helloWorld);
       dom.append(canvas);
-      //   dom.appendChild(rendered);
 
       return {
         dom,
         update: (updatedNode) => {
-          //   debugger;
-          if (!updatedNode.sameMarkup(currentNode)) return false;
-          currentNode = updatedNode;
-
-          const innerView = innerEditor.innerView();
-          if (innerView) {
-            const state = innerView.state;
-            const start = updatedNode.content.findDiffStart(state.doc.content);
-            if (start !== null && start !== undefined) {
-              const diff = updatedNode.content.findDiffEnd(state.doc.content);
-              if (diff) {
-                let { a: endA, b: endB } = diff;
-                const overlap = start - Math.min(endA, endB);
-                if (overlap > 0) {
-                  endA += overlap;
-                  endB += overlap;
-                }
-                innerView.dispatch(
-                  state.tr
-                    .replace(start, endB, node.slice(start, endA))
-                    .setMeta("fromOutside", true)
-                );
-              }
-            }
-          }
-          //   place where I update
-          //   const newVal = updatedNode.content.firstChild?.text || "";
-          helloWorld.textContent = "newVal";
-          dom.appendChild(helloWorld);
-
+          console.log("updatedNode", updatedNode);
           return true;
         },
         selectNode: () => {
           if (!view.editable) return;
-          dom.classList.add("ProseMirror-selectednode");
         },
-        deselectNode: () => {
-          innerEditor.closeEditor();
-          dom.classList.remove("ProseMirror-selectednode");
-        },
+        deselectNode: () => {},
         stopEvent: (event) => {
-          const innerView = innerEditor.innerView();
-          const { target } = event;
-          const isChild = target && innerView?.dom.contains(target as Element);
-          return !!(innerView && isChild);
+          return false;
         },
         ignoreMutation: () => true,
         destroy() {
-          //   rendered.remove();
-          helloWorld.remove();
+          canvas.remove();
           dom.remove();
         },
       };
@@ -211,6 +163,5 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
     inputRules: (nodeType) => [
       textblockTypeInputRule(inputRegex, nodeType, () => ({ id: getId() })),
     ],
-    // remarkPlugins: () => [remarkMermaid],
   };
 });

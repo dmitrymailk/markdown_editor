@@ -3,11 +3,12 @@ import { Pen } from "./libs/Pen";
 import { Pointer, PointerStore } from "./libs/Pointer";
 
 class DrawApp {
-  constructor(canvasElem) {
+  constructor(canvasElem, setValueImage) {
     this.board = new Board();
     this.pen = new Pen();
     this.pointerStore = new PointerStore();
     this.appDiv = window.document.querySelector("#app");
+    this.setValueImage = setValueImage;
     this.initDrawingApp(canvasElem);
   }
   get base64() {
@@ -42,6 +43,7 @@ class DrawApp {
   pointerLeave(e) {
     // this.appDiv.touchAction = "";
     this.appDiv.style.touchAction = "initial";
+    this.setValueImage(this.base64);
     this.pointerStore.destruct(e.pointerId);
   }
 
