@@ -8,8 +8,10 @@ class DrawApp {
     this.pen = new Pen();
     this.pointerStore = new PointerStore();
     this.appDiv = window.document.querySelector("#app");
-
     this.initDrawingApp(canvasElem);
+  }
+  get base64() {
+    return this.board.dom.toDataURL();
   }
   // Attach event listener
   pointerDown(e) {
