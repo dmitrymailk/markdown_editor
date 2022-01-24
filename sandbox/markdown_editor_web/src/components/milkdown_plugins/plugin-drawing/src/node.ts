@@ -13,7 +13,7 @@ import { getId } from "./utility";
 import { DrawApp } from "../../../draw/DrawCanvas/js/main.js";
 
 // const inputRegex = /^```mermaid$/;
-const inputRegex = /^`q$/;
+const inputRegex = /^`draw$/;
 /**
 graph TD;
     EditorState-->EditorView;
@@ -125,7 +125,8 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       // create drawing canvas
       const canvas = document.createElement("canvas");
       canvas.id = `drawing-${currentId}`;
-      canvas.width = 400;
+      canvas.width = 600;
+      canvas.height = 400;
       const setValue = (value: string) => {
         //   tr это transition который управляет состоянием редактора.
         // через него происходят все разметки в редакторе
