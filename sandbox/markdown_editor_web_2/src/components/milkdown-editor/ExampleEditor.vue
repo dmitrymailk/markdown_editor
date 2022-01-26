@@ -19,3 +19,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.drawing canvas {
+  border: 1px solid black;
+}
+</style>
