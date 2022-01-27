@@ -9,7 +9,12 @@
     "test": "jest"
   },
   "gitHooks": {
-    "pre-commit": "test"
+    "pre-commit": "my-test"
+  },
+  "my-test": {
+    "*": [
+      "npm run test"
+    ]
   },
   "dependencies": {
     "core-js": "^3.6.5",
