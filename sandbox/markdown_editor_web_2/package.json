@@ -5,13 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint2": "vue-cli-service lint"
+    "lint2": "vue-cli-service lint",
+    "test": "jest"
   },
-  "pre-commit": [
-    "build"
-  ],
+  "gitHooks": {
+    "pre-commit": "test"
+  },
   "dependencies": {
     "core-js": "^3.6.5",
+    "shelljs": "^0.8.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
@@ -46,6 +48,7 @@
     "@vue/eslint-config-typescript": "^7.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0",
+    "jest": "^27.4.7",
     "material-icons": "^1.10.6",
     "mermaid": "^8.12.1",
     "nanoid": "^3.1.25",

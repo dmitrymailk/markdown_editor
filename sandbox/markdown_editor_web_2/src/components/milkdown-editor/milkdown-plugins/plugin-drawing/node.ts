@@ -9,8 +9,6 @@ export const nanoid = customAlphabet("abcedfghicklmn", 10);
 // @ts-ignore
 import { DrawApp } from "../../../../libs/DrawCanvas/main.js";
 const getId = (node?: any) => node?.attrs?.identity || nanoid();
-// import { getId } from "./utility";
-// const inputRegex = /^```mermaid$/;
 const inputRegex = /^`draw$/;
 /**
 graph TD;
