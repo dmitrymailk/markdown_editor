@@ -10,13 +10,7 @@ export const nanoid = customAlphabet("abcedfghicklmn", 10);
 import { DrawApp } from "../../../../libs/DrawCanvas/main.js";
 const getId = (node?: any) => node?.attrs?.identity || nanoid();
 const inputRegex = /^`draw$/;
-/**
-graph TD;
-    EditorState-->EditorView;
-    EditorView-->DOMEvent;
-    DOMEvent-->Transaction;
-    Transaction-->EditorState; 
- */
+
 export type Options = {
   placeholder: {
     empty: string;
@@ -28,7 +22,8 @@ export const TurnIntoDiagram = createCmdKey();
 
 export const drawingNode = createNode<string, Options>((utils, options) => {
   const id = "drawing";
-
+  //   console.log(options);
+  `${options}`;
   return {
     id,
     schema: () => ({
@@ -39,6 +34,8 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       atom: true,
       code: true,
       isolating: true,
+      selectable: false,
+      draggable: false,
       attrs: {
         value: {
           default: "",
@@ -55,6 +52,7 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
             if (!(dom instanceof HTMLElement)) {
               throw new Error();
             }
+            // console.log("parseDOM");
             return {
               value: dom.dataset.value,
               identity: dom.id,
@@ -64,6 +62,7 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       ],
       toDOM: (node) => {
         const identity = getId(node);
+        // console.log("toDOM");
         return [
           "canvas",
           {
@@ -84,13 +83,14 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
             state.addText(value);
           }
           state.closeNode();
+          console.log("parseMarkdown");
         },
       },
       toMarkdown: {
         match: (node) => node.type.name === id,
         runner: (state, node) => {
           const url = node.attrs.value;
-          console.log("toMarkdown", node);
+          //   console.log("toMarkdown", node);
           state.addNode("image", undefined, undefined, {
             title: "",
             url: url,
@@ -121,7 +121,7 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
           })
         );
       };
-      const drawApp = new DrawApp(canvas, setValue);
+      new DrawApp(canvas, setValue);
 
       dom.classList.add("drawing");
 
@@ -130,15 +130,9 @@ export const drawingNode = createNode<string, Options>((utils, options) => {
       return {
         dom,
         update: (updatedNode) => {
-          console.log("updatedNode", updatedNode);
+          //   console.log("updatedNode", updatedNode);
+          if (updatedNode.type.name !== id) return false;
           return true;
-        },
-        selectNode: () => {
-          if (!view.editable) return;
-        },
-
-        stopEvent: (event) => {
-          return false;
         },
         ignoreMutation: () => true,
         destroy() {

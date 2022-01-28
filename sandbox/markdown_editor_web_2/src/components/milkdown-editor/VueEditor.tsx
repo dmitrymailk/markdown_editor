@@ -3,14 +3,13 @@ import { defaultValueCtx, Editor, rootCtx } from "@milkdown/core";
 import { slash } from "@milkdown/plugin-slash";
 
 import {
-  commonmarkNodes,
   //   commonmarkPlugins,
   commonmark,
   //   image,
 } from "@milkdown/preset-commonmark";
 import { nord } from "@milkdown/theme-nord";
 import { EditorRef, useEditor, VueEditor } from "@milkdown/vue";
-import { DefineComponent, defineComponent, ref } from "vue";
+import { defineComponent, ref } from "vue";
 
 // import  ImageCat from "./CatImage.vue"
 // import ImageDrawComponent from "./ImageDrawComponent.vue";
@@ -52,6 +51,7 @@ const MyEditor = defineComponent<{ markdown: string }>({
   setup: (props) => {
     const editorRef = ref<EditorRef>({ get: () => undefined, dom: () => null });
     const editor = useEditor((root, renderVue) => {
+      `${renderVue}`;
       // const nodes = commonmarkNodes.configure(image, {
       //   view: renderVue(ImageDraw),
       // });
@@ -65,8 +65,8 @@ const MyEditor = defineComponent<{ markdown: string }>({
               .get(listenerCtx)
               .markdownUpdated((ctx, markdown, prevMarkdown) => {
                 // @ts-ignore
-                let output = markdown;
-                console.log(output);
+                const output = markdown;
+                console.log(prevMarkdown, output);
               });
           })
           .use(nord)

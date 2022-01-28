@@ -6,8 +6,7 @@
 
 <script>
 import { MyEditor } from "./VueEditor";
-const markdown = `
-`;
+const markdown = ``;
 export default {
   data() {
     return {
