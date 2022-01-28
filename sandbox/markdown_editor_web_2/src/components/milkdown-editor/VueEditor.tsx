@@ -66,7 +66,8 @@ const MyEditor = defineComponent<{ markdown: string }>({
               .markdownUpdated((ctx, markdown, prevMarkdown) => {
                 // @ts-ignore
                 const output = markdown;
-                console.log(prevMarkdown, output);
+                `${prevMarkdown} ${output}`;
+                // console.log(output);
               });
           })
           .use(nord)

@@ -19,8 +19,31 @@ export default {
 };
 </script>
 
-<style>
-.drawing canvas {
-  border: 1px solid black;
-}
+<style lang="sass">
+body
+    height: 100%
+    width: 100%
+    margin: 0
+
+.drawing
+    display: flex
+
+.drawing canvas
+   border: 1px solid black
+   background: #ffffff
+   margin: 0 auto
+
+
+.milkdown-menu
+    max-width: 965px
+    margin: 0 auto
+
+.ProseMirror.editor
+    // width: 100%
+    max-width: 695px
+    margin: 0 auto
+
+.milkdown
+    height: 100vh
+    width: 100%
 </style>
