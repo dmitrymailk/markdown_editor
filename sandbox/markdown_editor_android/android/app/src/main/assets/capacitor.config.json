@@ -2,5 +2,8 @@
 	"appId": "com.editor.markdown",
 	"appName": "Markdown Editor",
 	"webDir": "dist",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"server": {
+		"url": "http://192.168.120.170:8100"
+	}
 }

@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <MyEditor :markdown="markdown" />
-  </div>
+  <MyEditor :markdown="markdown" />
 </template>
 
 <script>
@@ -21,10 +19,12 @@ export default {
 </script>
 
 <style lang="sass">
-body
-    height: 100%
-    width: 100%
-    margin: 0
+// body, #app, html, #app-container
+//     height: 300px
+//     width: 100%
+//     margin: 0
+//     overflow: hidden
+//     touch-action: none
 
 .drawing
     display: flex

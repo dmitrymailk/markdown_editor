@@ -7,7 +7,8 @@ class DrawApp {
     this.board = new Board();
     this.pen = new Pen();
     this.pointerStore = new PointerStore();
-    this.appDiv = window.document.querySelector("#app");
+    this.appDiv = window.document.querySelector("#app-container");
+    console.log(window);
     this.setValueImage = setValueImage;
     this.initDrawingApp(canvasElem);
   }

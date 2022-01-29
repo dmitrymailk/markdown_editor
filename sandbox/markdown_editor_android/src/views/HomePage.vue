@@ -1,13 +1,7 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <div id="container">
+      <div id="app-container">
         <ExampleEditor />
       </div>
     </ion-content>
@@ -17,10 +11,10 @@
 <script lang="ts">
 import {
   IonContent,
-  IonHeader,
+  //   IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
+  //   IonTitle,
+  //   IonToolbar,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 // import { MilkdownEditor } from "../components/MilkdownEditor";
@@ -29,10 +23,10 @@ import ExampleEditor from "../components/milkdown-editor/ExampleEditor.vue";
 export default defineComponent({
   components: {
     IonContent,
-    IonHeader,
+    // IonHeader,
     IonPage,
-    IonTitle,
-    IonToolbar,
+    // IonTitle,
+    // IonToolbar,
     ExampleEditor,
   },
 });
