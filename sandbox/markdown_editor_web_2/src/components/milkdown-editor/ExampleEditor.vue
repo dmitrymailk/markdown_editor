@@ -6,6 +6,7 @@
 
 <script>
 import { MyEditor } from "./VueEditor";
+import "material-icons/iconfont/material-icons.css";
 const markdown = ``;
 export default {
   data() {

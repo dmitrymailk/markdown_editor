@@ -29,7 +29,6 @@ import { prism } from "@milkdown/plugin-prism";
 import { drawing } from "./milkdown-plugins/plugin-drawing";
 import "katex/dist/katex.min.css";
 // https://www.npmjs.com/package/material-icons
-import "material-icons/iconfont/material-icons.css";
 
 // const ImageDraw: DefineComponent = defineComponent({
 //   name: "image-draw",
