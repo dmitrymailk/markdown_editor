@@ -8,7 +8,7 @@
       </ion-header>
 
       <div id="container">
-        <MilkdownEditor />
+        <ExampleEditor />
       </div>
     </ion-content>
   </ion-page>
@@ -23,7 +23,8 @@ import {
   IonToolbar,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
-import { MilkdownEditor } from "../components/MilkdownEditor";
+// import { MilkdownEditor } from "../components/MilkdownEditor";
+import ExampleEditor from "../components/milkdown-editor/ExampleEditor.vue";
 
 export default defineComponent({
   components: {
@@ -32,7 +33,7 @@ export default defineComponent({
     IonPage,
     IonTitle,
     IonToolbar,
-    MilkdownEditor,
+    ExampleEditor,
   },
 });
 </script>
