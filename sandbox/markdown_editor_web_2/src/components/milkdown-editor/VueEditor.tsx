@@ -7,7 +7,7 @@ import {
   commonmark,
   //   image,
 } from "@milkdown/preset-commonmark";
-import { nord } from "@milkdown/theme-nord";
+// import { nord } from "@milkdown/theme-nord";
 import { EditorRef, useEditor, VueEditor } from "@milkdown/vue";
 import { defineComponent, ref } from "vue";
 
@@ -28,22 +28,10 @@ import { prism } from "@milkdown/plugin-prism";
 // import { diagram } from "../milkdown_plugins/plugin-diagram/src";
 import { drawing } from "./milkdown-plugins/plugin-drawing";
 import "katex/dist/katex.min.css";
-// https://www.npmjs.com/package/material-icons
 
-// const ImageDraw: DefineComponent = defineComponent({
-//   name: "image-draw",
-//   setup() {
-//     return () => <ImageDrawComponent />;
-//   },
-//   components: {
-//     ImageDrawComponent,
-//   },
-// });
+import { nord } from "./milkdown-plugins/plugin-theme-nord";
 
-// import { createNode } from '@milkdown/utils';
 import { listener, listenerCtx } from "@milkdown/plugin-listener";
-// let output = '';
-// import { image } from "../milkdown_plugins/plugin-image-draw/image";
 
 const MyEditor = defineComponent<{ markdown: string }>({
   name: "my-editor",
