@@ -1,33 +1,36 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <div id="app-container">
-        <ExampleEditor />
+      <div class="app-container app-container_closed">
+        <FileExplorer />
+        <MarkdownEditor />
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import {
-  IonContent,
-  //   IonHeader,
-  IonPage,
-  //   IonTitle,
-  //   IonToolbar,
-} from "@ionic/vue";
+import { IonContent, IonPage } from "@ionic/vue";
 import { defineComponent } from "vue";
-// import { MilkdownEditor } from "../components/MilkdownEditor";
-import ExampleEditor from "../components/milkdown-editor/ExampleEditor.vue";
-
+import MarkdownEditor from "../components/milkdown-editor/MarkdownEditor.vue";
+import FileExplorer from "../components/file-explorer/FileExplorer.vue";
 export default defineComponent({
   components: {
     IonContent,
-    // IonHeader,
     IonPage,
-    // IonTitle,
-    // IonToolbar,
-    ExampleEditor,
+    MarkdownEditor,
+    FileExplorer,
   },
 });
 </script>
+
+<style lang="sass">
+.app-container
+    display: grid
+    height: 100%
+    width: 100%
+    &_opened
+        grid-template-columns: 300px auto
+    &_closed
+        grid-template-columns: 32px auto
+</style>

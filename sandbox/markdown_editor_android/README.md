@@ -22,3 +22,4 @@
 
 - [Ionic capasitor filesystem](https://capacitorjs.com/docs/apis/filesystem)
 - [Ionic live reload](https://ionicframework.com/docs/cli/livereload)
+- [import svg from vue](https://stackoverflow.com/questions/65100281/how-do-i-import-an-svg-in-vue-3)

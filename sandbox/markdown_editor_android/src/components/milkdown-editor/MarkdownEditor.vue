@@ -1,5 +1,7 @@
 <template>
-  <MyEditor :markdown="markdown" />
+  <div class="markdown-editor">
+    <MyEditor :markdown="markdown" />
+  </div>
 </template>
 
 <script>
@@ -53,29 +55,31 @@ export default {
     },
   },
   async mounted() {
-    let permission = await Filesystem.checkPermissions();
-    if (permission.publicStorage !== "granted") {
-      permission = await Filesystem.requestPermissions();
-      console.log("request permission", permission);
-    } else {
-      console.log("permission ok");
-      const APP_DIR = Directory.ExternalStorage;
-      console.log(APP_DIR);
-      try {
-        const dir = await Filesystem.readdir({
-          path: "/",
-          directory: APP_DIR,
-        });
-        console.log(dir);
-      } catch (error) {
-        console.log("mounted", error);
-      }
-    }
+    // let permission = await Filesystem.checkPermissions();
+    // if (permission.publicStorage !== "granted") {
+    //   permission = await Filesystem.requestPermissions();
+    //   console.log("request permission", permission);
+    // } else {
+    //   console.log("permission ok");
+    //   const APP_DIR = Directory.ExternalStorage;
+    //   console.log(APP_DIR);
+    //   try {
+    //     const dir = await Filesystem.readdir({
+    //       path: "/",
+    //       directory: APP_DIR,
+    //     });
+    //     console.log(dir);
+    //   } catch (error) {
+    //     console.log("mounted", error);
+    //   }
+    // }
   },
 };
 </script>
 
 <style lang="sass">
+.markdown-editor
+    grid-column: 2 / 3
 
 .drawing
     display: flex
