@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable vue/no-unused-components */
 import { IonContent, IonPage } from "@ionic/vue";
 import { defineComponent } from "vue";
 import MarkdownEditor from "../components/milkdown-editor/MarkdownEditor.vue";
@@ -33,4 +34,8 @@ export default defineComponent({
         grid-template-columns: 300px auto
     &_closed
         grid-template-columns: 32px auto
+
+#app, body, html
+    width: 100%
+    height: 100%
 </style>

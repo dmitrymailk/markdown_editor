@@ -79,10 +79,10 @@ export default {
       }
     },
   },
-  async mounted() {
-    const folderItems = await this.getFolderItems();
-    console.log(folderItems);
-  },
+  //   async mounted() {
+  //     const folderItems = await this.getFolderItems();
+  //     console.log(folderItems);
+  //   },
 };
 </script>
 <style lang="sass">
@@ -115,9 +115,11 @@ export default {
 	display: flex
 	flex-direction: column
 	align-items: center
-	margin-top: 16px
+	height: 100vh
 	&__title
 		width: 100%
+		margin-top: 16px
+		height: 32px
 	&__list
 		overflow-y: scroll
 		height: 100vh

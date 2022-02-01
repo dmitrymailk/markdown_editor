@@ -93,6 +93,11 @@ export default {
 .milkdown-menu
     max-width: 965px
     margin: 0 auto
+    &::-webkit-scrollbar
+        display: none !important
+    &::-webkitscrollbar-thumb
+        display: none !important
+
 
 .ProseMirror.editor
     // width: 100%
@@ -100,6 +105,7 @@ export default {
     margin: 0 auto
 
 .milkdown
-    height: 100vh
+    height: calc(100vh - 51px)
     width: 100%
+    overflow-y: scroll
 </style>
