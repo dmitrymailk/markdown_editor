@@ -26,6 +26,10 @@
 import { Filesystem, Directory } from "@capacitor/filesystem";
 import OpenFileExplorerIcon from "./assets/open-file-explorer.svg";
 import FileExplorerFolder from "./FileExplorerFolder.vue";
+
+// это значит что папка создалась в /android/data/com.editor.markdown/
+const APP_DIR = Directory.External;
+
 export default {
   components: {
     FileExplorerFolder,
@@ -34,7 +38,8 @@ export default {
     return {
       OpenFileExplorerIcon,
       isEditorOpen: false,
-      dirlist: ["Folder 1", "Folder 2"],
+      dirlist: [],
+      workdir: "/markdown-editor/",
     };
   },
   methods: {
@@ -42,8 +47,10 @@ export default {
       console.log("clik");
       const appContainer = document.querySelector(".app-container");
       const disrList = this.$refs.show_dirlist;
-      const folderItems = await this.getFolderItems();
+      const workdir = this.workdir;
+      const folderItems = await this.getFolderItems(workdir);
       this.dirlist = folderItems.files;
+
       if (this.isEditorOpen) {
         // app containter
         appContainer.classList.remove("app-container_opened");
@@ -61,28 +68,52 @@ export default {
       }
       this.isEditorOpen = !this.isEditorOpen;
     },
-    async getFolderItems() {
+    async getFolderItems(path) {
       let permission = await Filesystem.checkPermissions();
       if (permission.publicStorage !== "granted") {
         permission = await Filesystem.requestPermissions();
         console.log("request permission", permission);
       } else {
         console.log("permission ok");
-        const APP_DIR = Directory.ExternalStorage;
-        console.log(APP_DIR);
+
         const dir = await Filesystem.readdir({
-          path: "/",
+          path: path,
           directory: APP_DIR,
         });
-        console.log(dir);
+        console.log(`dirlist of ${path}`, dir);
         return dir;
       }
     },
   },
-  //   async mounted() {
-  //     const folderItems = await this.getFolderItems();
-  //     console.log(folderItems);
-  //   },
+  async mounted() {
+    await Filesystem.requestPermissions();
+
+    const openFolder = "/test1";
+    let errMessage = "";
+    try {
+      const getFolder = await Filesystem.readdir({
+        path: openFolder,
+        directory: APP_DIR,
+      });
+      console.log("getFolder", getFolder);
+    } catch (e) {
+      errMessage = e.message;
+      console.error(e.message);
+    }
+
+    if (errMessage === "Directory does not exist") {
+      try {
+        const workdir = await Filesystem.mkdir({
+          path: openFolder,
+          directory: APP_DIR,
+        });
+        console.log(workdir);
+      } catch (e) {
+        errMessage = e.message;
+        console.error(errMessage);
+      }
+    }
+  },
 };
 </script>
 <style lang="sass">
