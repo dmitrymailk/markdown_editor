@@ -1,26 +1,26 @@
 <template>
-  <div class="file-explorer__folder">
-    <div class="file-explorer__folder-img">
-      <img :src="FolderIcon" alt="" srcset="" />
+  <div class="file-explorer__markdown">
+    <div class="file-explorer__markdown-img">
+      <img :src="MarkdownIcon" alt="" srcset="" />
     </div>
-    <div class="file-explorer__folder-title">{{ folderTitle }}</div>
+    <div class="file-explorer__markdown-title">{{ markdownTitle }}</div>
   </div>
 </template>
 
 <script>
-import FolderIcon from "./assets/folder_icon_2.svg";
+import MarkdownIcon from "./assets/markdown_icon.svg";
 export default {
-  props: ["folderTitle"],
+  props: ["markdownTitle"],
   data() {
     return {
-      FolderIcon,
+      MarkdownIcon,
     };
   },
 };
 </script>
 
 <style lang="sass">
-.file-explorer__folder
+.file-explorer__markdown
     width: calc(100% - 4px)
     height: 40px
     align-items: center
@@ -29,7 +29,7 @@ export default {
     border: 2px solid #ccc
     margin-top: 4px
     &-img
-        height: 26px
+        height: 32px
         width: 32px
         margin-left: 4px
         img

@@ -17,30 +17,42 @@
         </div>
       </div>
       <div class="directory-explorer__list">
-        <FileExplorerFolder
-          :folderTitle="folderName"
-          :key="folderName"
-          v-for="folderName in dirlist"
-        />
+        <template v-for="elem in dirlist">
+          <FileExplorerFolder
+            v-if="elem.type == 'folder'"
+            :folderTitle="elem.name"
+            :key="elem.name"
+          />
+          <FileExplorerMarkdown
+            v-else-if="elem.type == 'md_file'"
+            :markdownTitle="elem.name"
+            :key="elem.name"
+          />
+        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
+
 // svg icons
 import OpenFileExplorerIcon from "./assets/open_file_explorer.svg";
 import AddNewFileIcon from "./assets/add_file.svg";
 
-import { Filesystem, Directory } from "@capacitor/filesystem";
+// components
 import FileExplorerFolder from "./FileExplorerFolder.vue";
+import FileExplorerMarkdown from "./FileExplorerMarkdown.vue";
 
 // это значит что папка создалась в /android/data/com.editor.markdown/
 const APP_DIR = Directory.External;
-
+const ENCODING = Encoding.UTF8;
+const WORK_DIR = "/markdown-editor/";
 export default {
   components: {
     FileExplorerFolder,
+    FileExplorerMarkdown,
   },
   data() {
     return {
@@ -49,17 +61,14 @@ export default {
       AddNewFileIcon,
       isEditorOpen: false,
       dirlist: [],
-      workdir: "/markdown-editor/",
     };
   },
   methods: {
     async openFileExplorer() {
-      console.log("clik");
       const appContainer = document.querySelector(".app-container");
       const disrList = this.$refs.show_dirlist;
-      const workdir = this.workdir;
-      const folderItems = await this.getFolderItems(workdir);
-      this.dirlist = folderItems.files;
+      const folderItems = await this.getFolderItems(WORK_DIR);
+      this.dirlist = this.splitFoldersMarkdown(folderItems.files);
 
       if (this.isEditorOpen) {
         // app containter
@@ -97,6 +106,38 @@ export default {
 
     async createFile() {
       console.log("create file");
+      try {
+        const filename = "test.md";
+        const file = await Filesystem.writeFile({
+          path: `${WORK_DIR}${filename}`,
+          data: "## Hellloooo world",
+          directory: APP_DIR,
+          encoding: ENCODING,
+        });
+        console.log(file);
+      } catch (e) {
+        console.log("err create file", e);
+      }
+    },
+
+    splitFoldersMarkdown(folderItems) {
+      console.log("folderItems", folderItems);
+      let result = [];
+      folderItems.forEach((element) => {
+        if (element.includes(".")) {
+          if (element.includes(".md"))
+            result.push({
+              type: "md_file",
+              name: element,
+            });
+        } else {
+          result.push({
+            type: "folder",
+            name: element,
+          });
+        }
+      });
+      return result;
     },
   },
 
@@ -172,6 +213,9 @@ export default {
 		overflow-y: scroll
 		height: 100vh
 		width: 100%
+		display: flex
+		align-items: center
+		flex-direction: column
 	&__head
 		width: 100%
 		display: flex
