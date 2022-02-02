@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import FolderIcon from "./assets/folder-icon.svg";
+import FolderIcon from "./assets/folder_icon.svg";
 export default {
   props: ["folderTitle"],
   data() {

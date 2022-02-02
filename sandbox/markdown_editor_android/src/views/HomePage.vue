@@ -30,10 +30,11 @@ export default defineComponent({
     display: grid
     height: 100%
     width: 100%
+    overflow: scroll
     &_opened
-        grid-template-columns: 300px auto
+        grid-template-columns: 300px calc( 100% - 300px )
     &_closed
-        grid-template-columns: 32px auto
+        grid-template-columns: 32px calc( 100% - 32px )
 
 #app, body, html
     width: 100%

@@ -10,7 +10,12 @@
       </div>
     </div>
     <div class="directory-explorer" v-if="isEditorOpen">
-      <div class="directory-explorer__title">Files</div>
+      <div class="directory-explorer__head">
+        <div class="directory-explorer__title">Files</div>
+        <div class="directory-explorer__create-file" @click="createFile">
+          <img :src="AddNewFileIcon" alt="" />
+        </div>
+      </div>
       <div class="directory-explorer__list">
         <FileExplorerFolder
           :folderTitle="folderName"
@@ -23,8 +28,11 @@
 </template>
 
 <script>
+// svg icons
+import OpenFileExplorerIcon from "./assets/open_file_explorer.svg";
+import AddNewFileIcon from "./assets/add_file.svg";
+
 import { Filesystem, Directory } from "@capacitor/filesystem";
-import OpenFileExplorerIcon from "./assets/open-file-explorer.svg";
 import FileExplorerFolder from "./FileExplorerFolder.vue";
 
 // это значит что папка создалась в /android/data/com.editor.markdown/
@@ -36,7 +44,9 @@ export default {
   },
   data() {
     return {
+      // svg icons
       OpenFileExplorerIcon,
+      AddNewFileIcon,
       isEditorOpen: false,
       dirlist: [],
       workdir: "/markdown-editor/",
@@ -84,11 +94,16 @@ export default {
         return dir;
       }
     },
+
+    async createFile() {
+      console.log("create file");
+    },
   },
+
   async mounted() {
     await Filesystem.requestPermissions();
 
-    const openFolder = "/test1";
+    const openFolder = "/markdown-editor/";
     let errMessage = "";
     try {
       const getFolder = await Filesystem.readdir({
@@ -113,6 +128,8 @@ export default {
         console.error(errMessage);
       }
     }
+
+    await this.openFileExplorer();
   },
 };
 </script>
@@ -149,10 +166,24 @@ export default {
 	height: 100vh
 	&__title
 		width: 100%
-		margin-top: 16px
+		margin: 16px 0 0 8px
 		height: 32px
 	&__list
 		overflow-y: scroll
 		height: 100vh
 		width: 100%
+	&__head
+		width: 100%
+		display: flex
+		align-items: center
+		border-bottom: 1px solid #000
+	&__create-file
+		height: 100%
+		width: 48px
+		display: flex
+		align-items: center
+		justify-content: center
+		img
+			height: 32px
+			width: 32px
 </style>
