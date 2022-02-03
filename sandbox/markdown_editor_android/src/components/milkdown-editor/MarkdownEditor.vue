@@ -1,5 +1,12 @@
 <template>
   <div class="markdown-editor">
+    <div class="markdown-editor__filename">
+      <input
+        type="text"
+        class="markdown-editor__filename-input"
+        value="Untitled file"
+      />
+    </div>
     <MyEditor :markdown="markdown" />
   </div>
 </template>
@@ -80,6 +87,18 @@ export default {
 <style lang="sass">
 .markdown-editor
     grid-column: 2 / 3
+    &__filename
+        height: 32px
+        width: 100%
+        border-bottom: 1px solid #000
+        &-input
+            height: 100%
+            width: 100%
+            outline: none
+            border: none
+            padding: 8px
+            font-weight: 500
+            font-size: 20px
 
 .drawing
     display: flex
@@ -105,7 +124,7 @@ export default {
     margin: 0 auto
 
 .milkdown
-    height: calc(100vh - 51px)
+    height: calc(100vh - 51px - 32px)
     width: 100%
     overflow-y: scroll
 </style>
