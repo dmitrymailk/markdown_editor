@@ -23,6 +23,12 @@ export default {
       markdown,
     };
   },
+  computed: {
+    editorText() {
+      console.log(this.$store.editorText);
+      return this.$store.editorText;
+    },
+  },
   components: {
     MyEditor,
   },

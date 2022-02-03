@@ -33,6 +33,10 @@ import { nord } from "./milkdown-plugins/plugin-theme-nord";
 
 import { listener, listenerCtx } from "@milkdown/plugin-listener";
 
+// vuex
+import { store } from "@/store";
+import { saveTextFile } from "../file-explorer/file-explorer-utils";
+
 const MyEditor = defineComponent<{ markdown: string }>({
   name: "my-editor",
   setup: (props) => {
@@ -55,6 +59,10 @@ const MyEditor = defineComponent<{ markdown: string }>({
                 const output = markdown;
                 `${prevMarkdown} ${output}`;
                 // console.log(output);
+                store.commit("setEditorText", {
+                  newText: output,
+                });
+                saveTextFile("test.md", output);
               });
           })
           .use(nord)
