@@ -40,7 +40,8 @@
     "core-js": "^3.6.5",
     "material-icons": "^1.10.6",
     "vue": "^3.2.21",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
     "@capacitor/cli": "^3.4.0",
