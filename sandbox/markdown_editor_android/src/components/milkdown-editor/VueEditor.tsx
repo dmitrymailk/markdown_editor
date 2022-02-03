@@ -55,14 +55,14 @@ const MyEditor = defineComponent<{ markdown: string }>({
             ctx
               .get(listenerCtx)
               .markdownUpdated((ctx, markdown, prevMarkdown) => {
-                // @ts-ignore
                 const output = markdown;
                 `${prevMarkdown} ${output}`;
                 // console.log(output);
                 store.commit("setEditorText", {
                   newText: output,
                 });
-                saveTextFile("test.md", output);
+                const currentFilename = `${store.getters.currentFilename}.md`;
+                saveTextFile(currentFilename, output);
               });
           })
           .use(nord)

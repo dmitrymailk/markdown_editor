@@ -4,7 +4,8 @@
       <input
         type="text"
         class="markdown-editor__filename-input"
-        value="Untitled file"
+        @input="setFilename"
+        v-model="filename"
       />
     </div>
     <MyEditor :markdown="markdown" />
@@ -14,18 +15,18 @@
 <script>
 import { MyEditor } from "./VueEditor";
 import "material-icons/iconfont/material-icons.css";
-import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
+// import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 
 const markdown = ``;
 export default {
   data() {
     return {
       markdown,
+      filename: "Untitled file",
     };
   },
   computed: {
     editorText() {
-      console.log(this.$store.editorText);
       return this.$store.editorText;
     },
   },
@@ -33,38 +34,12 @@ export default {
     MyEditor,
   },
   methods: {
-    async writeSecretFile() {
-      await Filesystem.writeFile({
-        path: "secrets/text.txt",
-        data: "This is a test",
-        directory: Directory.Documents,
-        encoding: Encoding.UTF8,
+    setFilename() {
+      console.log(this.filename);
+      const filename = this.filename;
+      this.$store.commit("setCurrentFilename", {
+        filename,
       });
-    },
-    async readSecretFile() {
-      const contents = await Filesystem.readFile({
-        path: "secrets/text.txt",
-        directory: Directory.Documents,
-        encoding: Encoding.UTF8,
-      });
-
-      console.log("secrets:", contents);
-    },
-    async deleteSecretFile() {
-      await Filesystem.deleteFile({
-        path: "secrets/text.txt",
-        directory: Directory.Documents,
-      });
-    },
-    async readFilePath() {
-      // Here's an example of reading a file with a full file path. Use this to
-      // read binary data (base64 encoded) from plugins that return File URIs, such as
-      // the Camera.
-      const contents = await Filesystem.readFile({
-        path: "file:///var/mobile/Containers/Data/Application/22A433FD-D82D-4989-8BE6-9FC49DEA20BB/Documents/text.txt",
-      });
-
-      console.log("data:", contents);
     },
   },
   async mounted() {
