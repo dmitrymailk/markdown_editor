@@ -17,19 +17,14 @@ import { MyEditor } from "./VueEditor";
 import "material-icons/iconfont/material-icons.css";
 // import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 
-const markdown = ``;
 export default {
   data() {
     return {
-      markdown,
       filename: "Untitled file",
+      markdown: "",
     };
   },
-  computed: {
-    editorText() {
-      return this.$store.editorText;
-    },
-  },
+
   components: {
     MyEditor,
   },
@@ -42,26 +37,7 @@ export default {
       });
     },
   },
-  async mounted() {
-    // let permission = await Filesystem.checkPermissions();
-    // if (permission.publicStorage !== "granted") {
-    //   permission = await Filesystem.requestPermissions();
-    //   console.log("request permission", permission);
-    // } else {
-    //   console.log("permission ok");
-    //   const APP_DIR = Directory.ExternalStorage;
-    //   console.log(APP_DIR);
-    //   try {
-    //     const dir = await Filesystem.readdir({
-    //       path: "/",
-    //       directory: APP_DIR,
-    //     });
-    //     console.log(dir);
-    //   } catch (error) {
-    //     console.log("mounted", error);
-    //   }
-    // }
-  },
+  //   async mounted() {},
 };
 </script>
 

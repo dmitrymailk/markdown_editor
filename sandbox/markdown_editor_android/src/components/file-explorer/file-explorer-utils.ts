@@ -30,4 +30,20 @@ const saveTextFile = async (filename: string, text: string) => {
   }
 };
 
-export { saveTextFile };
+const getFileContent = async (filename: string) => {
+  try {
+    await checkPermissions();
+    const path = `${WORK_DIR}${filename}`;
+    const contents = await Filesystem.readFile({
+      path: path,
+      directory: APP_DIR,
+      encoding: ENCODING,
+    });
+
+    return contents.data;
+  } catch (e) {
+    console.error("error read file", e);
+  }
+};
+
+export { saveTextFile, getFileContent };

@@ -1,30 +1,29 @@
 <template>
-  <ion-page>
-    <ion-content :fullscreen="true">
-      <div class="app-container app-container_closed">
-        <FileExplorer />
-        <MarkdownEditor />
-      </div>
-    </ion-content>
-  </ion-page>
+  <div class="app-container app-container_closed">
+    <FileExplorer />
+    <markdown-editor />
+  </div>
 </template>
 
 <script lang="ts">
 /* eslint-disable vue/no-unused-components */
-import { IonContent, IonPage } from "@ionic/vue";
+import { IonContent, IonPage, IonRouterOutlet, IonTabs } from "@ionic/vue";
 import { defineComponent } from "vue";
-import MarkdownEditor from "../components/milkdown-editor/MarkdownEditor.vue";
 import FileExplorer from "../components/file-explorer/FileExplorer.vue";
+import MarkdownEditor from "../components/milkdown-editor/MarkdownEditor.vue";
 export default defineComponent({
   components: {
     IonContent,
     IonPage,
-    MarkdownEditor,
     FileExplorer,
+    IonRouterOutlet,
+    IonTabs,
+    MarkdownEditor,
   },
 });
 </script>
 
+, MarkdownEditor
 <style lang="sass">
 .app-container
     display: grid

@@ -23,10 +23,12 @@
             :folderTitle="elem.name"
             :key="elem.name"
           />
+
           <FileExplorerMarkdown
             v-else-if="elem.type == 'md_file'"
             :markdownTitle="elem.name"
             :key="elem.name"
+            @click="() => openMarkdown(elem)"
           />
         </template>
       </div>
@@ -37,13 +39,20 @@
 <script>
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 
+// milkdown
+import { editorViewCtx, parserCtx } from "@milkdown/core";
+import { Slice } from "prosemirror-model";
+
 // svg icons
 import OpenFileExplorerIcon from "./assets/open_file_explorer.svg";
 import AddNewFileIcon from "./assets/add_file.svg";
 
-// components
+// fileeditor components
 import FileExplorerFolder from "./FileExplorerFolder.vue";
 import FileExplorerMarkdown from "./FileExplorerMarkdown.vue";
+
+// file utils
+import { getFileContent } from "./file-explorer-utils";
 
 // это значит что папка создалась в /android/data/com.editor.markdown/
 const APP_DIR = Directory.External;
@@ -91,7 +100,7 @@ export default {
       let permission = await Filesystem.checkPermissions();
       if (permission.publicStorage !== "granted") {
         permission = await Filesystem.requestPermissions();
-        console.log("request permission", permission);
+        console.warn("request permission", permission);
       } else {
         console.log("permission ok");
 
@@ -99,13 +108,13 @@ export default {
           path: path,
           directory: APP_DIR,
         });
-        console.log(`dirlist of ${path}`, dir);
+        // console.log(`dirlist of ${path}`, dir);
         return dir;
       }
     },
 
     async createFile() {
-      console.log("create file");
+      //   console.log("create file");
       try {
         const filename = "test.md";
         const file = await Filesystem.writeFile({
@@ -116,12 +125,11 @@ export default {
         });
         console.log(file);
       } catch (e) {
-        console.log("err create file", e);
+        console.error("err create file", e);
       }
     },
 
     splitFoldersMarkdown(folderItems) {
-      console.log("folderItems", folderItems);
       let result = [];
       folderItems.forEach((element) => {
         if (element.includes(".")) {
@@ -138,6 +146,35 @@ export default {
         }
       });
       return result;
+    },
+
+    async openMarkdown(elem) {
+      //   console.log(elem);
+      const filename = elem.name;
+      const content = await getFileContent(filename);
+      //   console.log("editor content", content);
+      this.$store.commit("setEditorText", {
+        editorText: content,
+      });
+
+      let editor = this.$store.state.editor.get();
+      console.log("EDITOR", editor);
+      editor.action((ctx) => {
+        const view = ctx.get(editorViewCtx);
+        const parser = ctx.get(parserCtx);
+        const doc = parser(content);
+        if (!doc) return;
+        const state = view.state;
+        view.dispatch(
+          state.tr.replace(
+            0,
+            state.doc.content.size,
+            new Slice(doc.content, 0, 0)
+          )
+        );
+      });
+
+      this.$store.commit("setCurrentFilename", filename);
     },
   },
 
@@ -159,11 +196,11 @@ export default {
 
     if (errMessage === "Directory does not exist") {
       try {
-        const workdir = await Filesystem.mkdir({
+        await Filesystem.mkdir({
           path: openFolder,
           directory: APP_DIR,
         });
-        console.log(workdir);
+        // console.log(workdir);
       } catch (e) {
         errMessage = e.message;
         console.error(errMessage);

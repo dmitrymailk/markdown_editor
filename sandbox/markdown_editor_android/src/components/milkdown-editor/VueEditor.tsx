@@ -42,11 +42,7 @@ const MyEditor = defineComponent<{ markdown: string }>({
   setup: (props) => {
     const editorRef = ref<EditorRef>({ get: () => undefined, dom: () => null });
     const editor = useEditor((root, renderVue) => {
-      `${renderVue}`;
-      // const nodes = commonmarkNodes.configure(image, {
-      //   view: renderVue(ImageDraw),
-      // });
-
+      console.log(renderVue);
       return (
         Editor.make()
           .config((ctx) => {
@@ -54,16 +50,19 @@ const MyEditor = defineComponent<{ markdown: string }>({
             ctx.set(defaultValueCtx, props.markdown);
             ctx
               .get(listenerCtx)
-              .markdownUpdated((ctx, markdown, prevMarkdown) => {
+              .markdownUpdated(async (ctx, markdown, prevMarkdown) => {
                 const output = markdown;
                 `${prevMarkdown} ${output}`;
                 // console.log(output);
                 store.commit("setEditorText", {
-                  newText: output,
+                  editorText: output,
                 });
                 const currentFilename = `${store.getters.currentFilename}.md`;
-                saveTextFile(currentFilename, output);
+                await saveTextFile(currentFilename, output);
               });
+            store.commit("setEditorContext", {
+              editorContext: ctx,
+            });
           })
           .use(nord)
           // .use(nodes)
@@ -81,10 +80,14 @@ const MyEditor = defineComponent<{ markdown: string }>({
           .use(drawing)
       );
     });
+    store.commit("setEditor", editorRef);
+    const vueComponent = <VueEditor editorRef={editorRef} editor={editor} />;
+    console.log(vueComponent);
     // @ts-ignore
-    return () => <VueEditor editorRef={editorRef} editor={editor} />;
+    return () => vueComponent;
   },
 });
 MyEditor.props = ["markdown"];
+MyEditor.computed = {};
 
 export { MyEditor };
