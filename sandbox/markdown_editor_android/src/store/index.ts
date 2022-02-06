@@ -3,7 +3,8 @@ import { createStore } from "vuex";
 const store = createStore({
   state: {
     editorText: "",
-    currentFilename: "test1.md",
+    currentFilename: "Untitled file",
+    filenameRef: "",
     editor: "",
     editorContext: "",
     isEditorOpen: false,
@@ -16,6 +17,9 @@ const store = createStore({
     },
     setCurrentFilename(state, payload) {
       state.currentFilename = payload.filename;
+    },
+    setFileNameRef(state, payload) {
+      state.filenameRef = payload;
     },
     setEditorContext(state, payload) {
       const ctx = payload.editorContext;

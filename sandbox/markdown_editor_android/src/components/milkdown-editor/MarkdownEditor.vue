@@ -6,6 +6,7 @@
         class="markdown-editor__filename-input"
         @input="setFilename"
         v-model="filename"
+        ref="filenameRef"
       />
     </div>
     <MyEditor :markdown="markdown" />
@@ -24,20 +25,23 @@ export default {
       markdown: "",
     };
   },
-
   components: {
     MyEditor,
   },
   methods: {
     setFilename() {
-      console.log(this.filename);
-      const filename = this.filename;
+      console.log(this.$refs.filenameRef.value);
+      const filename = this.$refs.filenameRef.value;
       this.$store.commit("setCurrentFilename", {
         filename,
       });
     },
   },
-  // async mounted() {},
+  mounted() {
+    const filenameRef = this.$refs.filenameRef;
+    console.log(filenameRef);
+    this.$store.commit("setFileNameRef", filenameRef);
+  },
 };
 </script>
 

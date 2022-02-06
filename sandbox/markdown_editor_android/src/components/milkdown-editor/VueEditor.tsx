@@ -42,7 +42,7 @@ const MyEditor = defineComponent<{ markdown: string }>({
   setup: (props) => {
     const editorRef = ref<EditorRef>({ get: () => undefined, dom: () => null });
     const editor = useEditor((root, renderVue) => {
-      console.log(renderVue);
+      `${renderVue}`;
       return (
         Editor.make()
           .config((ctx) => {
@@ -82,7 +82,6 @@ const MyEditor = defineComponent<{ markdown: string }>({
     });
     store.commit("setEditor", editorRef);
     const vueComponent = <VueEditor editorRef={editorRef} editor={editor} />;
-    console.log(vueComponent);
     // @ts-ignore
     return () => vueComponent;
   },

@@ -151,6 +151,10 @@ export default {
     async openMarkdown(elem) {
       //   console.log(elem);
       const filename = elem.name;
+      console.log(filename);
+      this.$store.commit("setCurrentFilename", filename);
+      console.log(this.$store.state.filenameRef);
+      this.$store.state.filenameRef.value = filename;
       const content = await getFileContent(filename);
       //   console.log("editor content", content);
       this.$store.commit("setEditorOpen", true);
