@@ -153,6 +153,7 @@ export default {
       const filename = elem.name;
       const content = await getFileContent(filename);
       //   console.log("editor content", content);
+      this.$store.commit("setEditorOpen", true);
       this.$store.commit("setEditorText", {
         editorText: content,
       });

@@ -6,6 +6,7 @@ const store = createStore({
     currentFilename: "test1.md",
     editor: "",
     editorContext: "",
+    isEditorOpen: false,
   },
   mutations: {
     setEditorText(state, payload) {
@@ -21,8 +22,10 @@ const store = createStore({
       state.editorContext = ctx;
     },
     setEditor(state, payload) {
-      console.log("setEditor", payload);
       state.editor = payload;
+    },
+    setEditorOpen(state, payload) {
+      state.isEditorOpen = payload;
     },
   },
   actions: {},

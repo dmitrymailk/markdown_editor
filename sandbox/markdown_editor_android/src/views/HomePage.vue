@@ -1,7 +1,8 @@
 <template>
   <div class="app-container app-container_closed">
     <FileExplorer />
-    <markdown-editor />
+    <MarkdownEditor v-show="isEditorOpen" />
+    <EmptyPage v-if="!isEditorOpen" />
   </div>
 </template>
 
@@ -9,8 +10,12 @@
 /* eslint-disable vue/no-unused-components */
 import { IonContent, IonPage, IonRouterOutlet, IonTabs } from "@ionic/vue";
 import { defineComponent } from "vue";
+
+// custom components
 import FileExplorer from "../components/file-explorer/FileExplorer.vue";
 import MarkdownEditor from "../components/milkdown-editor/MarkdownEditor.vue";
+import EmptyPage from "../views/EmptyPage.vue";
+
 export default defineComponent({
   components: {
     IonContent,
@@ -19,6 +24,12 @@ export default defineComponent({
     IonRouterOutlet,
     IonTabs,
     MarkdownEditor,
+    EmptyPage,
+  },
+  computed: {
+    isEditorOpen() {
+      return this.$store.state.isEditorOpen;
+    },
   },
 });
 </script>
