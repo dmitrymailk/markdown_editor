@@ -17,7 +17,7 @@ const checkPermissions = async () => {
 const saveTextFile = async (filename: string, text: string) => {
   try {
     await checkPermissions();
-    const path = `${WORK_DIR}${filename}`;
+    const path = `${WORK_DIR}${filename}.md`;
     const file = await Filesystem.writeFile({
       path: path,
       data: text,
@@ -33,7 +33,7 @@ const saveTextFile = async (filename: string, text: string) => {
 const getFileContent = async (filename: string) => {
   try {
     await checkPermissions();
-    const path = `${WORK_DIR}${filename}`;
+    const path = `${WORK_DIR}${filename}.md`;
     const contents = await Filesystem.readFile({
       path: path,
       directory: APP_DIR,

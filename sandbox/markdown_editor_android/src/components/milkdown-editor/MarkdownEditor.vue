@@ -4,8 +4,7 @@
       <input
         type="text"
         class="markdown-editor__filename-input"
-        @input="setFilename"
-        v-model="filename"
+        @change="setFilename"
         ref="filenameRef"
       />
     </div>
@@ -21,7 +20,6 @@ import "material-icons/iconfont/material-icons.css";
 export default {
   data() {
     return {
-      filename: "Untitled file",
       markdown: "",
     };
   },
@@ -30,7 +28,7 @@ export default {
   },
   methods: {
     setFilename() {
-      console.log(this.$refs.filenameRef.value);
+      console.log("setFilename", this.$refs.filenameRef.value);
       const filename = this.$refs.filenameRef.value;
       this.$store.commit("setCurrentFilename", {
         filename,
@@ -39,6 +37,7 @@ export default {
   },
   mounted() {
     const filenameRef = this.$refs.filenameRef;
+    filenameRef.value = "Untitled file";
     console.log(filenameRef);
     this.$store.commit("setFileNameRef", filenameRef);
   },

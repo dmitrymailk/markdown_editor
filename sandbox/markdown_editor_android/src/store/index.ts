@@ -4,6 +4,7 @@ const store = createStore({
   state: {
     editorText: "",
     currentFilename: "Untitled file",
+    prevFilename: "",
     filenameRef: "",
     editor: "",
     editorContext: "",
@@ -13,9 +14,10 @@ const store = createStore({
     setEditorText(state, payload) {
       const text = payload.editorText;
       state.editorText = text;
-      console.log(state.editor);
+      console.log("setEditorText");
     },
     setCurrentFilename(state, payload) {
+      state.prevFilename = state.currentFilename;
       state.currentFilename = payload.filename;
     },
     setFileNameRef(state, payload) {
@@ -35,7 +37,7 @@ const store = createStore({
   actions: {},
   modules: {},
   getters: {
-    currentFilename(state) {
+    getCurrentFilename(state, getters) {
       return state.currentFilename;
     },
   },

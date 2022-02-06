@@ -56,7 +56,7 @@ import { getFileContent } from "./file-explorer-utils";
 
 // это значит что папка создалась в /android/data/com.editor.markdown/
 const APP_DIR = Directory.External;
-const ENCODING = Encoding.UTF8;
+// const ENCODING = Encoding.UTF8;
 const WORK_DIR = "/markdown-editor/";
 export default {
   components: {
@@ -113,22 +113,6 @@ export default {
       }
     },
 
-    async createFile() {
-      //   console.log("create file");
-      try {
-        const filename = "test.md";
-        const file = await Filesystem.writeFile({
-          path: `${WORK_DIR}${filename}`,
-          data: "## Hellloooo world",
-          directory: APP_DIR,
-          encoding: ENCODING,
-        });
-        console.log(file);
-      } catch (e) {
-        console.error("err create file", e);
-      }
-    },
-
     splitFoldersMarkdown(folderItems) {
       let result = [];
       folderItems.forEach((element) => {
@@ -148,22 +132,25 @@ export default {
       return result;
     },
 
+    getPureName(filename) {
+      const mdPos = filename.indexOf(".md");
+      return filename.slice(0, mdPos);
+    },
+
     async openMarkdown(elem) {
-      //   console.log(elem);
-      const filename = elem.name;
-      console.log(filename);
+      const filename = this.getPureName(elem.name);
+      // да это костыль, но иначе не работает, потом надо понять почему
+      localStorage.currentFilename = filename;
       this.$store.commit("setCurrentFilename", filename);
-      console.log(this.$store.state.filenameRef);
-      this.$store.state.filenameRef.value = filename;
+
       const content = await getFileContent(filename);
-      //   console.log("editor content", content);
       this.$store.commit("setEditorOpen", true);
       this.$store.commit("setEditorText", {
         editorText: content,
       });
+      this.$store.state.filenameRef.value = filename;
 
       let editor = this.$store.state.editor.get();
-      console.log("EDITOR", editor);
       editor.action((ctx) => {
         const view = ctx.get(editorViewCtx);
         const parser = ctx.get(parserCtx);
@@ -178,8 +165,6 @@ export default {
           )
         );
       });
-
-      this.$store.commit("setCurrentFilename", filename);
     },
   },
 
