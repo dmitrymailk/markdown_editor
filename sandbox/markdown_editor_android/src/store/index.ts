@@ -17,8 +17,11 @@ const store = createStore({
       console.log("setEditorText");
     },
     setCurrentFilename(state, payload) {
-      state.prevFilename = state.currentFilename;
-      state.currentFilename = payload.filename;
+      state.currentFilename = payload;
+      localStorage.currentFilename = payload;
+    },
+    setPrevFilename(state, payload) {
+      state.prevFilename = payload;
     },
     setFileNameRef(state, payload) {
       state.filenameRef = payload;

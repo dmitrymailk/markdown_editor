@@ -133,7 +133,7 @@ export default {
     },
 
     getPureName(filename) {
-      const mdPos = filename.indexOf(".md");
+      const mdPos = filename.lastIndexOf(".md");
       return filename.slice(0, mdPos);
     },
 
@@ -142,6 +142,7 @@ export default {
       // да это костыль, но иначе не работает, потом надо понять почему
       localStorage.currentFilename = filename;
       this.$store.commit("setCurrentFilename", filename);
+      this.$store.commit("setPrevFilename", filename);
 
       const content = await getFileContent(filename);
       this.$store.commit("setEditorOpen", true);

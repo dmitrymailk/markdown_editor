@@ -57,14 +57,8 @@ const MyEditor = defineComponent<{ markdown: string }>({
                 store.commit("setEditorText", {
                   editorText: output,
                 });
-                let currentFilename = localStorage.currentFilename;
-                console.log(
-                  "currentFilename",
-                  currentFilename,
-                  store,
-                  localStorage.currentFilename
-                );
-                currentFilename = `${currentFilename}.md`;
+                const currentFilename = localStorage.currentFilename;
+
                 await saveTextFile(currentFilename, output);
               });
             store.commit("setEditorContext", {

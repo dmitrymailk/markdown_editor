@@ -4,7 +4,7 @@
       <input
         type="text"
         class="markdown-editor__filename-input"
-        @change="setFilename"
+        @input="setFilename"
         ref="filenameRef"
       />
     </div>
@@ -16,7 +16,7 @@
 import { MyEditor } from "./VueEditor";
 import "material-icons/iconfont/material-icons.css";
 // import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
-
+import { renameFile } from "../file-explorer/file-explorer-utils";
 export default {
   data() {
     return {
@@ -27,18 +27,21 @@ export default {
     MyEditor,
   },
   methods: {
-    setFilename() {
+    async setFilename() {
       console.log("setFilename", this.$refs.filenameRef.value);
       const filename = this.$refs.filenameRef.value;
-      this.$store.commit("setCurrentFilename", {
-        filename,
-      });
+      let currentFilename = this.$store.state.currentFilename;
+      console.log("setFilename prev", currentFilename);
+      this.$store.commit("setPrevFilename", currentFilename);
+      this.$store.commit("setCurrentFilename", filename);
+      const prevFilename = this.$store.state.prevFilename;
+      currentFilename = this.$store.state.currentFilename;
+      await renameFile(prevFilename, currentFilename);
     },
   },
   mounted() {
     const filenameRef = this.$refs.filenameRef;
     filenameRef.value = "Untitled file";
-    console.log(filenameRef);
     this.$store.commit("setFileNameRef", filenameRef);
   },
 };

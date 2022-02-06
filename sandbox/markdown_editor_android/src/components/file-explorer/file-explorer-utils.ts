@@ -26,7 +26,27 @@ const saveTextFile = async (filename: string, text: string) => {
     });
     console.warn("file saved", file);
   } catch (e) {
-    console.error("error save file", e);
+    console.error("error save file", filename, e);
+  }
+};
+
+const renameFile = async (prevFilename: string, currentFilename: string) => {
+  try {
+    const fromPath = `${WORK_DIR}${prevFilename}.md`;
+    const toPath = `${WORK_DIR}${currentFilename}.md`;
+    console.log("renameFile", fromPath, toPath);
+    const file = await Filesystem.rename({
+      from: fromPath,
+      to: toPath,
+      directory: APP_DIR,
+      toDirectory: APP_DIR,
+    });
+    console.warn("file renamed", toPath);
+  } catch (e) {
+    console.error(
+      `error rename file prevFilename: ${prevFilename} currentFilename: ${currentFilename}`,
+      e
+    );
   }
 };
 
@@ -42,8 +62,8 @@ const getFileContent = async (filename: string) => {
 
     return contents.data;
   } catch (e) {
-    console.error("error read file", e);
+    console.error("error read file", filename, e);
   }
 };
 
-export { saveTextFile, getFileContent };
+export { saveTextFile, getFileContent, renameFile };
