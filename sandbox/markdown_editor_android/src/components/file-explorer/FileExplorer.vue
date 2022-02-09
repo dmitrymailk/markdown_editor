@@ -17,6 +17,26 @@
         </div>
       </div>
       <div class="directory-explorer__list">
+        <div class="directory-explorer__add-file" v-show="isAddNewFile">
+          <input
+            class="directory-explorer__add-file-input"
+            type="text"
+            v-model="newFilename"
+            ref="newFilenameRef"
+          />
+          <div class="directory-explorer__add-file-buttons">
+            <div
+              class="directory-explorer__add-file-reject"
+              @click="rejectAddFile"
+            >
+              <img :src="RejectIcon" alt="" />
+            </div>
+            <div class="directory-explorer__add-file-apply" @click="applyFile">
+              <img :src="ApplyIcon" alt="" />
+            </div>
+          </div>
+        </div>
+
         <template v-for="elem in dirlist">
           <FileExplorerFolder
             v-if="elem.type == 'folder'"
@@ -46,13 +66,15 @@ import { Slice } from "prosemirror-model";
 // svg icons
 import OpenFileExplorerIcon from "./assets/open_file_explorer.svg";
 import AddNewFileIcon from "./assets/add_file.svg";
+import ApplyIcon from "./assets/apply.svg";
+import RejectIcon from "./assets/reject.svg";
 
 // fileeditor components
 import FileExplorerFolder from "./FileExplorerFolder.vue";
 import FileExplorerMarkdown from "./FileExplorerMarkdown.vue";
 
 // file utils
-import { getFileContent } from "./file-explorer-utils";
+import { getFileContent, saveTextFile } from "./file-explorer-utils";
 
 // это значит что папка создалась в /android/data/com.editor.markdown/
 const APP_DIR = Directory.External;
@@ -68,8 +90,12 @@ export default {
       // svg icons
       OpenFileExplorerIcon,
       AddNewFileIcon,
+      ApplyIcon,
+      RejectIcon,
       isEditorOpen: false,
       dirlist: [],
+      isAddNewFile: true,
+      newFilename: "",
     };
   },
   methods: {
@@ -77,7 +103,7 @@ export default {
       const appContainer = document.querySelector(".app-container");
       const disrList = this.$refs.show_dirlist;
       const folderItems = await this.getFolderItems(WORK_DIR);
-      this.dirlist = this.splitFoldersMarkdown(folderItems.files);
+      this.dirlist = folderItems;
 
       if (this.isEditorOpen) {
         // app containter
@@ -109,7 +135,8 @@ export default {
           directory: APP_DIR,
         });
         // console.log(`dirlist of ${path}`, dir);
-        return dir;
+        const folderItems = this.splitFoldersMarkdown(dir.files);
+        return folderItems;
       }
     },
 
@@ -166,6 +193,29 @@ export default {
           )
         );
       });
+    },
+    createFile() {
+      this.isAddNewFile = true;
+      // оно не работает сразу, поэтому нужно подождать
+      setTimeout(() => {
+        this.$refs.newFilenameRef.focus();
+      }, 500);
+    },
+    rejectAddFile() {
+      this.isAddNewFile = false;
+      this.newFilename = "";
+    },
+    async applyFile() {
+      const filename = this.newFilename;
+      try {
+        await saveTextFile(filename, "");
+        this.newFilename = "";
+        this.isAddNewFile = false;
+        const folderItems = await this.getFolderItems(WORK_DIR);
+        this.dirlist = folderItems;
+      } catch (e) {
+        console.error("Error while save file", e);
+      }
     },
   },
 
@@ -258,4 +308,45 @@ export default {
 		img
 			height: 32px
 			width: 32px
+	&__add-file
+		position: relative
+		width: calc(100% - 8px)
+		display: flex
+		align-items: center
+		margin: 4px 0 0 0
+		&-input
+			width: calc(100% - 64px)
+			height: 32px
+			border-radius: 4px 0 0 4px
+			outline: none
+			padding-left: 8px
+			border: 1px solid #000
+		&-buttons
+			right: 0
+			top: 0
+			width: 64px
+			display: flex
+			height: 100%
+		&-reject
+			width: 50%
+			height: 32px
+			border: 1px solid #000
+			border-left: none
+			border-radius: 0
+			align-items: center
+			display: flex
+			justify-content: center
+			img
+				width: 80%
+		&-apply
+			width: 50%
+			height: 32px
+			border: 1px solid #000
+			border-left: none
+			border-radius: 0 4px 4px 0
+			align-items: center
+			display: flex
+			justify-content: center
+			img
+				width: 80%
 </style>
