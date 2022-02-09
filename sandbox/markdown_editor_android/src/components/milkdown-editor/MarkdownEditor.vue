@@ -8,7 +8,9 @@
         ref="filenameRef"
       />
     </div>
-    <MyEditor :markdown="markdown" />
+    <div class="markdown-editor__editor">
+      <MyEditor :markdown="markdown" />
+    </div>
   </div>
 </template>
 
@@ -20,7 +22,7 @@ import { renameFile } from "../file-explorer/file-explorer-utils";
 export default {
   data() {
     return {
-      markdown: "",
+      markdown: "\n\n\n\n\n\n\n\n",
     };
   },
   components: {
@@ -73,8 +75,6 @@ export default {
 
 
 .milkdown-menu
-    max-width: 965px
-    margin: 0 auto
     &::-webkit-scrollbar
         display: none !important
     &::-webkitscrollbar-thumb
@@ -82,12 +82,16 @@ export default {
 
 
 .ProseMirror.editor
-    // width: 100%
-    max-width: 695px
-    margin: 0 auto
+    touch-action: pan-y
 
 .milkdown
     height: calc(100vh - 51px - 32px)
     width: 100%
     overflow-y: scroll
+    -webkit-overflow-scrolling: touch
+
+
+.menu-selector-list
+    left: initial !important
+    margin-top: 34px
 </style>

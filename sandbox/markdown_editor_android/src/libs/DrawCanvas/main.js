@@ -43,7 +43,7 @@ class DrawApp {
 
   pointerLeave(e) {
     // this.appDiv.touchAction = "";
-    this.appDiv.style.touchAction = "none";
+    this.appDiv.style.touchAction = "initial";
     this.setValueImage(this.base64);
     this.pointerStore.destruct(e.pointerId);
   }
