@@ -47,6 +47,7 @@
           <FileExplorerMarkdown
             v-else-if="elem.type == 'md_file'"
             :markdownTitle="elem.name"
+            :onDeleteEvent="() => deleteMarkdown(elem)"
             :key="elem.name"
             @click="() => openMarkdown(elem)"
           />
@@ -74,7 +75,11 @@ import FileExplorerFolder from "./FileExplorerFolder.vue";
 import FileExplorerMarkdown from "./FileExplorerMarkdown.vue";
 
 // file utils
-import { getFileContent, saveTextFile } from "./file-explorer-utils";
+import {
+  getFileContent,
+  saveTextFile,
+  deleteFile,
+} from "./file-explorer-utils";
 
 // это значит что папка создалась в /android/data/com.editor.markdown/
 const APP_DIR = Directory.External;
@@ -194,6 +199,18 @@ export default {
         );
       });
     },
+    async deleteMarkdown(elem) {
+      const filename = this.getPureName(elem.name);
+      await deleteFile(filename);
+      this.dirlist = await this.getFolderItems(WORK_DIR);
+      const currentFilename = this.$store.getters.getCurrentFilename;
+      if (currentFilename === filename) {
+        this.$store.commit("setEditorOpen", false);
+        this.$store.commit("setCurrentFilename", "");
+        this.$store.commit("setPrevFilename", "");
+      }
+    },
+
     createFile() {
       this.isAddNewFile = true;
       // оно не работает сразу, поэтому нужно подождать

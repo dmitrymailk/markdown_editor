@@ -30,6 +30,20 @@ const saveTextFile = async (filename: string, text: string) => {
   }
 };
 
+const deleteFile = async (filename: string) => {
+  try {
+    await checkPermissions();
+    const path = `${WORK_DIR}${filename}.md`;
+    await Filesystem.deleteFile({
+      path: path,
+      directory: APP_DIR,
+    });
+    console.warn("file deleted", filename);
+  } catch (e) {
+    console.error("error delete file", e);
+  }
+};
+
 const renameFile = async (prevFilename: string, currentFilename: string) => {
   try {
     const fromPath = `${WORK_DIR}${prevFilename}.md`;
@@ -66,4 +80,4 @@ const getFileContent = async (filename: string) => {
   }
 };
 
-export { saveTextFile, getFileContent, renameFile };
+export { saveTextFile, getFileContent, renameFile, deleteFile };

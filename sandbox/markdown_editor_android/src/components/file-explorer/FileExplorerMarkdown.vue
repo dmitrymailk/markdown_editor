@@ -4,16 +4,21 @@
       <img :src="MarkdownIcon" alt="" srcset="" />
     </div>
     <div class="file-explorer__markdown-title">{{ markdownTitle }}</div>
+    <div class="file-explorer__markdown-delete" @click="onDeleteEvent">
+      <img :src="DeleteIcon" alt="" />
+    </div>
   </div>
 </template>
 
 <script>
 import MarkdownIcon from "./assets/markdown_icon.svg";
+import DeleteIcon from "./assets/delete.svg";
 export default {
-  props: ["markdownTitle"],
+  props: ["markdownTitle", "onDeleteEvent"],
   data() {
     return {
       MarkdownIcon,
+      DeleteIcon,
     };
   },
 };
@@ -21,6 +26,7 @@ export default {
 
 <style lang="sass">
 .file-explorer__markdown
+    max-width: calc(100% - 4px)
     width: calc(100% - 4px)
     height: 40px
     align-items: center
@@ -33,9 +39,20 @@ export default {
         width: 32px
         margin-left: 4px
         img
-            height: 100%
-            width: 100%
+            height: 30px
+            // width: 100%
     &-title
        margin-left: 8px
        overflow: hidden
+       width: 175px
+       white-space: nowrap
+    &-delete
+        height: 100%
+        width: 40px
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-left: auto
+        img
+            width: 22px
 </style>
