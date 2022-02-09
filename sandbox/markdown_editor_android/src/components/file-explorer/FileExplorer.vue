@@ -94,7 +94,7 @@ export default {
       RejectIcon,
       isEditorOpen: false,
       dirlist: [],
-      isAddNewFile: true,
+      isAddNewFile: false,
       newFilename: "",
     };
   },

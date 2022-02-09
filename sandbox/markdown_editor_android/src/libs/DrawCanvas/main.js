@@ -7,7 +7,7 @@ class DrawApp {
     this.board = new Board();
     this.pen = new Pen();
     this.pointerStore = new PointerStore();
-    this.appDiv = window.document.querySelector("#app-container");
+    this.appDiv = window.document.querySelector(".milkdown");
     console.log(window);
     this.setValueImage = setValueImage;
     this.initDrawingApp(canvasElem);
@@ -43,7 +43,7 @@ class DrawApp {
 
   pointerLeave(e) {
     // this.appDiv.touchAction = "";
-    this.appDiv.style.touchAction = "initial";
+    this.appDiv.style.touchAction = "none";
     this.setValueImage(this.base64);
     this.pointerStore.destruct(e.pointerId);
   }
