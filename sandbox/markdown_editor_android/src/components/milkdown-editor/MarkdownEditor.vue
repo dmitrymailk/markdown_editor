@@ -45,6 +45,17 @@ export default {
     const filenameRef = this.$refs.filenameRef;
     filenameRef.value = "Untitled file";
     this.$store.commit("setFileNameRef", filenameRef);
+    // console.log(ScrollReveal().reveal(".ProseMirror.editor"));
+  },
+  updated() {
+    const scrollArea = document.querySelector(".ProseMirror.editor");
+    scrollArea.addEventListener(
+      "touchmove",
+      () => {
+        console.log();
+      },
+      { passive: true }
+    );
   },
 };
 </script>
@@ -52,6 +63,7 @@ export default {
 <style lang="sass">
 .markdown-editor
     grid-column: 2 / 3
+    background: #fff
     &__filename
         height: 32px
         width: 100%
@@ -64,6 +76,8 @@ export default {
             padding: 8px
             font-weight: 500
             font-size: 20px
+            background: #fff
+            color: #222
 
 .drawing
     display: flex
@@ -81,14 +95,40 @@ export default {
         display: none !important
 
 
+.editor
+    // &::selection
+
 .ProseMirror.editor
-    touch-action: pan-y
+    cursor: none !important
+    overflow-y: scroll
+    user-select: none
+    -moz-user-select:   none
+    -ms-user-select:    none
+    -webkit-user-select:    none
+    color: #222
+    caret-color: transparent
+    position: relative
+    &::selection
+        cursor: none !important
+        overflow-y: scroll
+        user-select: none
+        -moz-user-select:   none
+        -ms-user-select:    none
+        -webkit-user-select:    none
+        color: #222
+        caret-color: transparent
+
+
 
 .milkdown
     height: calc(100vh - 51px - 32px)
     width: 100%
     overflow-y: scroll
-    -webkit-overflow-scrolling: touch
+    // -webkit-overflow-scrolling: touch
+
+.ProseMirror
+    position: initial !important
+    user-select: none
 
 
 .menu-selector-list

@@ -11,4 +11,5 @@
     display: flex
     align-items: center
     justify-content: center
+    color: #222
 </style>

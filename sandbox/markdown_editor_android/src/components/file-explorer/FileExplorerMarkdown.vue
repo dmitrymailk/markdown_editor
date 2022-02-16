@@ -46,6 +46,7 @@ export default {
        overflow: hidden
        width: 175px
        white-space: nowrap
+       color: #222
     &-delete
         height: 100%
         width: 40px
