@@ -98,25 +98,25 @@ export default {
 .editor
     // &::selection
 
-.ProseMirror.editor
-    cursor: none !important
-    overflow-y: scroll
-    user-select: none
-    -moz-user-select:   none
-    -ms-user-select:    none
-    -webkit-user-select:    none
-    color: #222
-    caret-color: transparent
-    position: relative
-    &::selection
-        cursor: none !important
-        overflow-y: scroll
-        user-select: none
-        -moz-user-select:   none
-        -ms-user-select:    none
-        -webkit-user-select:    none
-        color: #222
-        caret-color: transparent
+// .ProseMirror.editor
+//     cursor: none !important
+//     overflow-y: scroll
+//     user-select: none
+//     -moz-user-select:   none
+//     -ms-user-select:    none
+//     -webkit-user-select:    none
+//     color: #222
+//     caret-color: transparent
+//     position: relative
+//     &::selection
+//         cursor: none !important
+//         overflow-y: scroll
+//         user-select: none
+//         -moz-user-select:   none
+//         -ms-user-select:    none
+//         -webkit-user-select:    none
+//         color: #222
+//         caret-color: transparent
 
 
 

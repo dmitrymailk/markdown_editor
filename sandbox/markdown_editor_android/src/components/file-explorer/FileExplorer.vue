@@ -337,7 +337,9 @@ export default {
 			border-radius: 4px 0 0 4px
 			outline: none
 			padding-left: 8px
-			border: 1px solid #000
+			border: 1px solid #222
+			background: #fff
+			color: #222
 		&-buttons
 			right: 0
 			top: 0
